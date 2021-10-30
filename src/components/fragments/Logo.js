@@ -16,7 +16,7 @@ export default function Logo() {
           <img src={logo} width={"250"} />
         </Grid>
         <Grid item>
-          <Typography variant="h2">โรงพยาบาลอากาศอำนวย</Typography>
+          <Typography variant="h1">โรงพยาบาลอากาศอำนวย</Typography>
         </Grid>
       </Grid>
     </div>

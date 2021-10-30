@@ -3,7 +3,6 @@ import { BrowserRouter, Route, Routes, Link, Outlet } from "react-router-dom";
 import { createTheme, ThemeProvider, styled } from "@mui/material/styles";
 import Home from "./components/Home";
 import Toolbar from "@mui/material/Toolbar";
-import Header from "./components/fragments/Header";
 import HnButton from "./components/fragments/HnButton";
 
 const theme = createTheme({
@@ -14,7 +13,7 @@ const theme = createTheme({
   },
   palette: {
     primary: {
-      main: "#03a9f4",
+      main: "#00796b",
     },
     secondary: {
       main: "#ff9100",
