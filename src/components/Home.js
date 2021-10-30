@@ -4,29 +4,18 @@ import PatientInfo from "./fragments/PatientInfo";
 import HnButton from "./fragments/HnButton";
 import { styled } from "@mui/material/styles";
 import Grid from "@mui/material/Grid";
-import Box from "@mui/material/Box";
+import { makeStyles } from "@material-ui/core/styles";
 import Paper from "@mui/material/Paper";
 
-const Item = styled(Paper)(({ theme }) => ({
-  ...theme.typography.body2,
-  padding: theme.spacing(1),
-  textAlign: "center",
-  color: theme.palette.text.secondary,
-}));
+const useStyles = makeStyles((theme) => ({}));
+
 export default function Home() {
+  const classes = useStyles();
   return (
     <div>
-      <Grid container spacing={2}>
-        <Grid item xs={6}>
-          <Item>
-            <PatientInfo />
-          </Item>
-        </Grid>
-
-        <Grid item xs={6}>
-          <Item>
-            <HnButton />
-          </Item>
+      <Grid spacing={3}>
+        <Grid item xs={12}>
+          <PatientInfo />
         </Grid>
       </Grid>
     </div>

@@ -1,89 +1,206 @@
 import * as React from "react";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
-import Input from "@mui/material/Input";
-import FilledInput from "@mui/material/FilledInput";
-import OutlinedInput from "@mui/material/OutlinedInput";
-import InputLabel from "@mui/material/InputLabel";
-import InputAdornment from "@mui/material/InputAdornment";
-import FormHelperText from "@mui/material/FormHelperText";
-import FormControl from "@mui/material/FormControl";
+import Grid from "@mui/material/Grid";
+import { makeStyles } from "@material-ui/core/styles";
 import TextField from "@mui/material/TextField";
-import Visibility from "@mui/icons-material/Visibility";
-import VisibilityOff from "@mui/icons-material/VisibilityOff";
+import Logo from "../fragments/Logo";
+import { Typography, Toolbar } from "@mui/material";
 
+const useStyles = makeStyles((theme) => ({
+  box: {
+    height: 100,
+    display: "flex",
+    padding: 8,
+  },
+  centerBox: {
+    justifyContent: "center",
+    alignItems: "center",
+  },
+
+  button: {
+    minWidth: 150,
+    minHeight: 100,
+    // paddingLeft: 8,
+    // paddingRight: 8,
+  },
+  buttonText: {
+    fontSize: 80,
+  },
+}));
 export default function HnButton() {
+  const classes = useStyles();
   const [numbers, setNumber] = React.useState([]);
   console.log(numbers);
 
-  const onAddArray = (event) => {
-    setNumber((numbers) => [...numbers, event.target.value]);
+  const onAddArray = (vNumber) => {
+    setNumber((numbers) => [...numbers, vNumber]);
   };
 
   const onClearArray = () => {
     setNumber((numbers) => []);
   };
-  console.log(numbers.join(""));
+
   return (
-    <Box sx={{ "& button": { m: 1 } }}>
-      <FormControl variant="standard" fullWidth sx={{ m: 1 }}>
-        <TextField
-          mask="9999-9999-9999-9999"
-          id="numbers"
-          value={numbers.join("")}
-          disabled
-          label="หมายเลขบัตรประชาชน"
-        />
-      </FormControl>
-      <div>
-        <Button
-          variant="outlined"
-          size="large"
-          type="button"
-          onClick={onAddArray}
-          value={7}
-          // disabled={values.value}
+    <div>
+      <Grid
+        spacing={3}
+        container
+        justifyContent={"center"}
+        direction="column"
+        alignItems="center"
+      >
+        <Grid item xs={12}>
+          <Logo />
+        </Grid>
+        <Grid item>
+          <Typography variant="h5">
+            กรุณาระบุหมายเลขบัตรประชาชน หรือ หมายเลข HN{" "}
+          </Typography>
+        </Grid>
+        <Grid item xs={12} lg={12}>
+          <TextField
+            inputProps={{ style: { fontSize: 40 } }} // font size of input text
+            // InputLabelProps={{ style: { fontSize: 40 } }} // font size of input label
+            fullWidth
+            value={numbers.join("")}
+            disabled
+            label="หมายเลขบัตรประชาชน"
+          />
+        </Grid>
+      </Grid>
+      <Toolbar />
+
+      <Box sx={{ width: 500 }}>
+        <Grid
+          display="flex"
+          container
+          spacing={2}
+          justifyContent={"center"}
+          alignItems="center"
         >
-          7
-        </Button>
-        <Button variant="outlined" size="large" onClick={onAddArray} value={8}>
-          8
-        </Button>
-        <Button variant="outlined" size="large" onClick={onAddArray} value={9}>
-          9
-        </Button>
-        <Button variant="outlined" size="large" onClick={onClearArray}>
-          ลบ
-        </Button>
-      </div>
-      <div>
-        <Button variant="outlined" size="large" onClick={onAddArray} value={4}>
-          4
-        </Button>
-        <Button variant="outlined" size="large" onClick={onAddArray} value={5}>
-          5
-        </Button>
-        <Button variant="outlined" size="large" onClick={onAddArray} value={6}>
-          6
-        </Button>
-        <Button variant="outlined" size="large" onClick={onClearArray}>
-          ลบ
-        </Button>
-      </div>
-      <div>
-        <Button variant="outlined" size="large" onClick={onAddArray} value={1}>
-          1
-        </Button>
-        <Button variant="outlined" size="large" onClick={onAddArray} value={2}>
-          2
-        </Button>
-        <Button variant="outlined" size="large" onClick={onAddArray} value={3}>
-          3
-        </Button>
-        <Button variant="outlined" size="large" onClick={onAddArray} value={0}>
-          0
-        </Button>
-      </div>
-    </Box>
+          <Grid item xs={4}>
+            <Button
+              variant="contained"
+              color="success"
+              className={classes.button}
+              onClick={() => onAddArray("1")}
+            >
+              <span className={classes.buttonText}>1</span>
+            </Button>
+          </Grid>
+          <Grid item xs={4}>
+            <Button
+              variant="contained"
+              color="success"
+              className={classes.button}
+              onClick={() => onAddArray("2")}
+            >
+              <span className={classes.buttonText}>2</span>
+            </Button>
+          </Grid>
+          <Grid item xs={4}>
+            <Button
+              variant="contained"
+              color="success"
+              className={classes.button}
+              onClick={() => onAddArray("3")}
+            >
+              <span className={classes.buttonText}>3</span>
+            </Button>
+          </Grid>
+          <Grid item xs={4}>
+            <Button
+              variant="contained"
+              color="success"
+              className={classes.button}
+              onClick={() => onAddArray("4")}
+            >
+              <span className={classes.buttonText}>4</span>
+            </Button>
+          </Grid>
+          <Grid item xs={4}>
+            <Button
+              variant="contained"
+              color="success"
+              className={classes.button}
+              onClick={() => onAddArray("5")}
+            >
+              <span className={classes.buttonText}>5</span>
+            </Button>
+          </Grid>
+          <Grid item xs={4}>
+            <Button
+              variant="contained"
+              color="success"
+              className={classes.button}
+              onClick={() => onAddArray("6")}
+            >
+              <span className={classes.buttonText}>6</span>
+            </Button>
+          </Grid>
+          <Grid item xs={4}>
+            <Button
+              variant="contained"
+              color="success"
+              className={classes.button}
+              onClick={() => onAddArray("7")}
+            >
+              <span className={classes.buttonText}>7</span>
+            </Button>
+          </Grid>
+          <Grid item xs={4}>
+            <Button
+              variant="contained"
+              color="success"
+              className={classes.button}
+              onClick={() => onAddArray("8")}
+            >
+              <span className={classes.buttonText}>8</span>
+            </Button>
+          </Grid>
+          <Grid item xs={4}>
+            <Button
+              variant="contained"
+              color="success"
+              className={classes.button}
+              onClick={() => onAddArray("9")}
+            >
+              <span className={classes.buttonText}>9</span>
+            </Button>
+          </Grid>
+          <Grid item xs={4}>
+            <Button
+              variant="contained"
+              color="secondary"
+              className={classes.button}
+              onClick={() => onClearArray()}
+            >
+              <span>แก้ไข</span>
+            </Button>
+          </Grid>
+          <Grid item xs={4}>
+            <Button
+              variant="contained"
+              color="success"
+              className={classes.button}
+              onClick={() => onAddArray("0")}
+            >
+              <span className={classes.buttonText}>0</span>
+            </Button>
+          </Grid>
+          <Grid item xs={4}>
+            <Button
+              variant="contained"
+              color="error"
+              className={classes.button}
+              onClick={() => onClearArray()}
+            >
+              <span className={classes.buttonText}>ลบ</span>
+            </Button>
+          </Grid>
+        </Grid>
+      </Box>
+    </div>
   );
 }

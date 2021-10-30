@@ -2,12 +2,15 @@ import React from "react";
 import { BrowserRouter, Route, Routes, Link, Outlet } from "react-router-dom";
 import { createTheme, ThemeProvider, styled } from "@mui/material/styles";
 import Home from "./components/Home";
+import Toolbar from "@mui/material/Toolbar";
 import Header from "./components/fragments/Header";
+import HnButton from "./components/fragments/HnButton";
 
 const theme = createTheme({
   typography: {
     // fontFamily: 'Raleway, Arial',
-    fontFamily: "Niramit, sans-serif",
+    //fontFamily: "Niramit, sans-serif",
+    fontFamily: "Noto Serif Thai, serif",
   },
   palette: {
     primary: {
@@ -23,9 +26,10 @@ function App() {
     <div>
       <ThemeProvider theme={theme}>
         <BrowserRouter>
-          <Header />
+          <Toolbar />
           <Routes>
             <Route path="/" element={<Home />} />
+            <Route path="/number" element={<HnButton />}></Route>
           </Routes>
         </BrowserRouter>
       </ThemeProvider>
