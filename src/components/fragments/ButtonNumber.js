@@ -6,9 +6,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import TextField from "@mui/material/TextField";
 import Logo from "../fragments/Logo";
 import { Typography, Toolbar } from "@mui/material";
-import axios from "axios";
-import { httpClient } from "../../utils/HttpClient";
-import { server } from "./../../Constants";
+import { useForm } from "react-hook-form";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -27,72 +25,20 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function HnButton() {
-  const classes = useStyles();
-  const [numbers, setNumber] = useState([]);
-  const [buttonok, setButtonok] = useState(true);
-
-  async function onAddArray(vNumber) {
-    //setNumber({ hn: [...numbers.hn, vNumber] });
-    await setNumber((numbers) => [...numbers, vNumber]);
-    if (numbers.join("").length > 11) {
-      setButtonok(false);
-
-      //console.log(numbers.join("").length);
-    }
-    //prevState => [...prevState, obj1]
-    //  console.log(numbers);
-  }
-  async function submitArray(cid) {
-    try {
-      let result = await httpClient.post(`${server.PATIENT_URL}/${cid}`);
-      // console.log(JSON.stringify(result.data));
-      setButtonok(true);
-      if (result.data.msg == "notfound") {
-        console.log("nok");
-      } else {
-        console.log(result.data);
-      }
-    } catch (error) {
-      alert(JSON.stringify(error));
-    }
-
-    await setNumber((numbers) => (numbers = []));
-  }
-  const onClearArray = () => {
-    setNumber((numbers) => (numbers = []));
+export default function ButtonNumber(props) {
+  const [cid, setCid] = useState([]);
+  const handleClick = (e) => {
+    console.log(e.target.value);
+    const value = e.target.value;
+    setCid({ cid: [...cid, value] }, () => {
+      props.triggerCalculation(cid.join(""));
+    });
   };
-  //console.log(numbers.join(""));
 
+  const onClearArray = () => {};
+  const classes = useStyles();
   return (
     <div>
-      <Grid
-        spacing={3}
-        container
-        justifyContent={"center"}
-        direction="column"
-        alignItems="center"
-      >
-        <Grid item xs={12}>
-          <Logo />
-        </Grid>
-        <Grid item>
-          <Typography variant="h5">
-            กรุณาระบุหมายเลขบัตรประชาชน หรือ หมายเลข HN
-          </Typography>
-        </Grid>
-        <Grid item xs={12} lg={12}>
-          <TextField
-            inputProps={{ style: { fontSize: 80 } }} // font size of input text
-            fullWidth
-            value={numbers.join("")}
-            // value={cid}
-            //disabled
-            label="หมายเลขบัตรประชาชน"
-          />
-        </Grid>
-      </Grid>
-      <Toolbar />
       <div className={classes.root}>
         <Box
           sx={{
@@ -113,8 +59,10 @@ export default function HnButton() {
               <Button
                 variant="contained"
                 color="primary"
+                name="1"
+                value="1"
                 className={classes.button}
-                onClick={() => onAddArray("1")}
+                onClick={handleClick}
               >
                 <span className={classes.buttonText}>1</span>
               </Button>
@@ -124,7 +72,7 @@ export default function HnButton() {
                 variant="contained"
                 color="primary"
                 className={classes.button}
-                onClick={() => onAddArray("2")}
+                onClick={handleClick}
               >
                 <span className={classes.buttonText}>2</span>
               </Button>
@@ -134,7 +82,7 @@ export default function HnButton() {
                 variant="contained"
                 color="primary"
                 className={classes.button}
-                onClick={() => onAddArray("3")}
+                onClick={handleClick}
               >
                 <span className={classes.buttonText}>3</span>
               </Button>
@@ -144,7 +92,7 @@ export default function HnButton() {
                 variant="contained"
                 color="primary"
                 className={classes.button}
-                onClick={() => onAddArray("4")}
+                onClick={handleClick}
               >
                 <span className={classes.buttonText}>4</span>
               </Button>
@@ -154,7 +102,7 @@ export default function HnButton() {
                 variant="contained"
                 color="primary"
                 className={classes.button}
-                onClick={() => onAddArray("5")}
+                onClick={handleClick}
               >
                 <span className={classes.buttonText}>5</span>
               </Button>
@@ -164,7 +112,7 @@ export default function HnButton() {
                 variant="contained"
                 color="primary"
                 className={classes.button}
-                onClick={() => onAddArray("6")}
+                onClick={handleClick}
               >
                 <span className={classes.buttonText}>6</span>
               </Button>
@@ -174,7 +122,7 @@ export default function HnButton() {
                 variant="contained"
                 color="primary"
                 className={classes.button}
-                onClick={() => onAddArray("7")}
+                onClick={handleClick}
               >
                 <span className={classes.buttonText}>7</span>
               </Button>
@@ -184,7 +132,7 @@ export default function HnButton() {
                 variant="contained"
                 color="primary"
                 className={classes.button}
-                onClick={() => onAddArray("8")}
+                onClick={handleClick}
               >
                 <span className={classes.buttonText}>8</span>
               </Button>
@@ -194,7 +142,7 @@ export default function HnButton() {
                 variant="contained"
                 color="primary"
                 className={classes.button}
-                onClick={() => onAddArray("9")}
+                onClick={handleClick}
               >
                 <span className={classes.buttonText}>9</span>
               </Button>
@@ -203,10 +151,12 @@ export default function HnButton() {
               <Button
                 variant="contained"
                 color="warning"
+                name="clear"
+                value="clear"
                 className={classes.button}
-                onClick={() => onClearArray()}
+                onClick={handleClick}
               >
-                <span className={classes.buttonText2}>แก้ไข</span>
+                <span className={classes.buttonText2}>เคลียร์</span>
               </Button>
             </Grid>
             <Grid item xs={4}>
@@ -214,18 +164,17 @@ export default function HnButton() {
                 variant="contained"
                 color="primary"
                 className={classes.button}
-                onClick={() => onAddArray("0")}
+                onClick={handleClick}
               >
                 <span className={classes.buttonText}>0</span>
               </Button>
             </Grid>
             <Grid item xs={4}>
               <Button
-                disabled={buttonok}
+                type="submit"
                 variant="contained"
                 color="success"
                 className={classes.button}
-                onClick={() => submitArray(numbers.join(""))}
               >
                 <span className={classes.buttonText2}>ตกลง</span>
               </Button>

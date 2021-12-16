@@ -13,10 +13,10 @@ export default function Logo() {
         alignItems="center"
       >
         <Grid item>
-          <img src={logo} width={"250"} />
+          <img src={logo} width={"200"} />
         </Grid>
         <Grid item>
-          <Typography variant="h1">โรงพยาบาลอากาศอำนวย</Typography>
+          <Typography variant="h2">โรงพยาบาลอากาศอำนวย</Typography>
         </Grid>
       </Grid>
     </div>
