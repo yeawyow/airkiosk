@@ -3,7 +3,7 @@ import Logo from "../components/fragments/Logo";
 import { styled } from "@mui/material/styles";
 import Grid from "@mui/material/Grid";
 import { makeStyles } from "@material-ui/core/styles";
-import ButtonNumber from "../components/fragments/ButtonNumber";
+
 import Display from "../components/fragments/Display";
 export default function PatientCheck() {
   return (
@@ -16,7 +16,6 @@ export default function PatientCheck() {
           <Display />
         </Grid>
       </Grid>
-      <ButtonNumber />
     </div>
   );
 }

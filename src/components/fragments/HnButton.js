@@ -6,9 +6,9 @@ import { makeStyles } from "@material-ui/core/styles";
 import TextField from "@mui/material/TextField";
 import Logo from "../fragments/Logo";
 import { Typography, Toolbar } from "@mui/material";
-import axios from "axios";
 import { httpClient } from "../../utils/HttpClient";
 import { server } from "./../../Constants";
+import Notification from "./Notification";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -31,6 +31,11 @@ export default function HnButton() {
   const classes = useStyles();
   const [numbers, setNumber] = useState([]);
   const [buttonok, setButtonok] = useState(true);
+  const [notify, setNotify] = useState({
+    isOpen: false,
+    message: null,
+    type: null,
+  });
 
   async function onAddArray(vNumber) {
     //setNumber({ hn: [...numbers.hn, vNumber] });
@@ -49,7 +54,12 @@ export default function HnButton() {
       // console.log(JSON.stringify(result.data));
       setButtonok(true);
       if (result.data.msg == "notfound") {
-        console.log("nok");
+        // console.log("nok");
+        setNotify({
+          isOpen: true,
+          message: "ไม่พบข้อมูลของท่านในระบบ กรุณาติดต่อห้องบัตร",
+          type: "warning",
+        });
       } else {
         console.log(result.data);
       }
@@ -232,6 +242,7 @@ export default function HnButton() {
             </Grid>
           </Grid>
         </Box>
+        <Notification notify={notify} setNotify={setNotify} />
       </div>
     </div>
   );
