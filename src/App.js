@@ -1,15 +1,13 @@
 import React from "react";
-import { BrowserRouter, Route, Routes, Link, Outlet } from "react-router-dom";
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import { createTheme, ThemeProvider, styled } from "@mui/material/styles";
 import Home from "./pages/Home";
 import Toolbar from "@mui/material/Toolbar";
-import HnButton from "./components/fragments/HnButton";
-import PatientCheck from "./pages/PatientCheck";
+import ManualCid from "./pages/ManualCid";
+import VisitRegister from "./pages/VisitRegister";
 
 const theme = createTheme({
   typography: {
-    // fontFamily: 'Raleway, Arial',
-    //fontFamily: "Niramit, sans-serif",
     fontFamily: "Noto Serif Thai, serif",
   },
   palette: {
@@ -25,14 +23,14 @@ function App() {
   return (
     <div>
       <ThemeProvider theme={theme}>
-        <BrowserRouter>
+        <Router>
           <Toolbar variant="dense" />
           <Routes>
             <Route path="/" element={<Home />} />
-            <Route path="/number" element={<HnButton />}></Route>
-            <Route path="/pcheck" element={<PatientCheck />}></Route>
+            <Route path="/number" element={<ManualCid />}></Route>
+            <Route path="/visitRegister" element={<VisitRegister />}></Route>
           </Routes>
-        </BrowserRouter>
+        </Router>
       </ThemeProvider>
     </div>
   );

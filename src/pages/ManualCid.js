@@ -4,11 +4,12 @@ import Button from "@mui/material/Button";
 import Grid from "@mui/material/Grid";
 import { makeStyles } from "@material-ui/core/styles";
 import TextField from "@mui/material/TextField";
-import Logo from "../fragments/Logo";
+import Logo from "../components/fragments/Logo";
 import { Typography, Toolbar } from "@mui/material";
-import { httpClient } from "../../utils/HttpClient";
-import { server } from "./../../Constants";
-import Notification from "./Notification";
+import Notification from "../components/fragments/Notification";
+import * as manualCidAction from "../actions/manualCid.action";
+import { useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -27,52 +28,18 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function HnButton() {
+export default function ManualCid() {
+  let navigete = useNavigate();
+
+  const dispatch = useDispatch();
+
+  const manualCidReducer = useSelector(
+    ({ manualCidReducer }) => manualCidReducer
+  );
+  const notificationReducer = useSelector(
+    ({ notificationReducer }) => notificationReducer
+  );
   const classes = useStyles();
-  const [numbers, setNumber] = useState([]);
-  const [buttonok, setButtonok] = useState(true);
-  const [notify, setNotify] = useState({
-    isOpen: false,
-    message: null,
-    type: null,
-  });
-
-  async function onAddArray(vNumber) {
-    //setNumber({ hn: [...numbers.hn, vNumber] });
-    await setNumber((numbers) => [...numbers, vNumber]);
-    if (numbers.join("").length > 11) {
-      setButtonok(false);
-
-      //console.log(numbers.join("").length);
-    }
-    //prevState => [...prevState, obj1]
-    //  console.log(numbers);
-  }
-  async function submitArray(cid) {
-    try {
-      let result = await httpClient.post(`${server.PATIENT_URL}/${cid}`);
-      // console.log(JSON.stringify(result.data));
-      setButtonok(true);
-      if (result.data.msg == "notfound") {
-        // console.log("nok");
-        setNotify({
-          isOpen: true,
-          message: "ไม่พบข้อมูลของท่านในระบบ กรุณาติดต่อห้องบัตร",
-          type: "warning",
-        });
-      } else {
-        console.log(result.data);
-      }
-    } catch (error) {
-      alert(JSON.stringify(error));
-    }
-
-    await setNumber((numbers) => (numbers = []));
-  }
-  const onClearArray = () => {
-    setNumber((numbers) => (numbers = []));
-  };
-  //console.log(numbers.join(""));
 
   return (
     <div>
@@ -89,13 +56,14 @@ export default function HnButton() {
         <Grid item>
           <Typography variant="h5">
             กรุณาระบุหมายเลขบัตรประชาชน หรือ หมายเลข HN
+            {manualCidReducer.display}
           </Typography>
         </Grid>
         <Grid item xs={12} lg={12}>
           <TextField
             inputProps={{ style: { fontSize: 80 } }} // font size of input text
             fullWidth
-            value={numbers.join("")}
+            value={manualCidReducer.display.join("")}
             // value={cid}
             //disabled
             label="หมายเลขบัตรประชาชน"
@@ -124,7 +92,10 @@ export default function HnButton() {
                 variant="contained"
                 color="primary"
                 className={classes.button}
-                onClick={() => onAddArray("1")}
+                onClick={(e) => {
+                  e.preventDefault();
+                  dispatch(manualCidAction.btnPress(1));
+                }}
               >
                 <span className={classes.buttonText}>1</span>
               </Button>
@@ -134,7 +105,10 @@ export default function HnButton() {
                 variant="contained"
                 color="primary"
                 className={classes.button}
-                onClick={() => onAddArray("2")}
+                onClick={(e) => {
+                  e.preventDefault();
+                  dispatch(manualCidAction.btnPress(2));
+                }}
               >
                 <span className={classes.buttonText}>2</span>
               </Button>
@@ -144,7 +118,10 @@ export default function HnButton() {
                 variant="contained"
                 color="primary"
                 className={classes.button}
-                onClick={() => onAddArray("3")}
+                onClick={(e) => {
+                  e.preventDefault();
+                  dispatch(manualCidAction.btnPress(3));
+                }}
               >
                 <span className={classes.buttonText}>3</span>
               </Button>
@@ -154,7 +131,10 @@ export default function HnButton() {
                 variant="contained"
                 color="primary"
                 className={classes.button}
-                onClick={() => onAddArray("4")}
+                onClick={(e) => {
+                  e.preventDefault();
+                  dispatch(manualCidAction.btnPress(4));
+                }}
               >
                 <span className={classes.buttonText}>4</span>
               </Button>
@@ -164,7 +144,10 @@ export default function HnButton() {
                 variant="contained"
                 color="primary"
                 className={classes.button}
-                onClick={() => onAddArray("5")}
+                onClick={(e) => {
+                  e.preventDefault();
+                  dispatch(manualCidAction.btnPress(5));
+                }}
               >
                 <span className={classes.buttonText}>5</span>
               </Button>
@@ -174,7 +157,10 @@ export default function HnButton() {
                 variant="contained"
                 color="primary"
                 className={classes.button}
-                onClick={() => onAddArray("6")}
+                onClick={(e) => {
+                  e.preventDefault();
+                  dispatch(manualCidAction.btnPress(6));
+                }}
               >
                 <span className={classes.buttonText}>6</span>
               </Button>
@@ -184,7 +170,10 @@ export default function HnButton() {
                 variant="contained"
                 color="primary"
                 className={classes.button}
-                onClick={() => onAddArray("7")}
+                onClick={(e) => {
+                  e.preventDefault();
+                  dispatch(manualCidAction.btnPress(7));
+                }}
               >
                 <span className={classes.buttonText}>7</span>
               </Button>
@@ -194,7 +183,10 @@ export default function HnButton() {
                 variant="contained"
                 color="primary"
                 className={classes.button}
-                onClick={() => onAddArray("8")}
+                onClick={(e) => {
+                  e.preventDefault();
+                  dispatch(manualCidAction.btnPress(8));
+                }}
               >
                 <span className={classes.buttonText}>8</span>
               </Button>
@@ -204,7 +196,11 @@ export default function HnButton() {
                 variant="contained"
                 color="primary"
                 className={classes.button}
-                onClick={() => onAddArray("9")}
+                // onClick={() => onAddArray("9")}
+                onClick={(e) => {
+                  e.preventDefault();
+                  dispatch(manualCidAction.btnPress(9));
+                }}
               >
                 <span className={classes.buttonText}>9</span>
               </Button>
@@ -214,7 +210,10 @@ export default function HnButton() {
                 variant="contained"
                 color="warning"
                 className={classes.button}
-                onClick={() => onClearArray()}
+                onClick={(e) => {
+                  e.preventDefault();
+                  dispatch(manualCidAction.clearNumber());
+                }}
               >
                 <span className={classes.buttonText2}>แก้ไข</span>
               </Button>
@@ -224,25 +223,41 @@ export default function HnButton() {
                 variant="contained"
                 color="primary"
                 className={classes.button}
-                onClick={() => onAddArray("0")}
+                // onClick={() => onAddArray("0")}
+                onClick={(e) => {
+                  e.preventDefault();
+                  dispatch(manualCidAction.btnPress(0));
+                }}
               >
                 <span className={classes.buttonText}>0</span>
               </Button>
             </Grid>
             <Grid item xs={4}>
               <Button
-                disabled={buttonok}
+                //disabled={buttonOk}
                 variant="contained"
                 color="success"
                 className={classes.button}
-                onClick={() => submitArray(numbers.join(""))}
+                // onClick={() => submitArray(numbers.join(""))}
+                //onClick={handlePatient}
+                onClick={(e) => {
+                  e.preventDefault();
+                  dispatch(
+                    manualCidAction.patientCheck(
+                      {
+                        ...manualCidReducer,
+                      },
+                      navigete
+                    )
+                  );
+                }}
               >
                 <span className={classes.buttonText2}>ตกลง</span>
               </Button>
             </Grid>
           </Grid>
         </Box>
-        <Notification notify={notify} setNotify={setNotify} />
+        <Notification notify={notificationReducer} />
       </div>
     </div>
   );

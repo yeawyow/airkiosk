@@ -1,15 +1,14 @@
-//patient check
+// manual cid
 
-export const LOGIN_FETCHING = "LOGIN_FETCHING";
-export const LOGIN_FAILED = "LOGIN_FAILED";
-export const LOGIN_SUCCESS = "LOGIN_SUCCESS";
-export const LOGOUT = "LOGOUT";
+export const CHECK_FETCHING = "CHECK_FETCHING";
+export const CHECK_SUCCESS = "CHECK_SUCCESS";
+export const CHECK_NOTFOUND = "CHECK_NOTFOUND";
+export const ADD_NUMBER = "ADD_NUMBER";
+export const CLEAR_NUMBER = "CLEAR_NUMBER";
 
-// Stock Page
-export const NUMBER_ADD = "NUMBER_ADD";
-export const STOCK_SUCCESS = "STOCK_SUCCESS";
-export const STOCK_FAILED = "STOCK_FAILED";
-export const STOCK_CLEAR = "STOCK_CLEAR";
+// notification
+export const NOTIFICATION = "NOTIFICATION";
+export const CLOSENOTIFICATION = "CLOSENOTIFICATION";
 
 // Stock Edit Page
 export const STOCK_EDIT_FETCHING = "STOCK_EDIT_FETCHING";
