@@ -18,7 +18,8 @@ export const STOCK_EDIT_INITIALED = "STOCK_EDIT_INITIALED";
 
 export const apiUrl = "http://localhost:8081/api/v2";
 export const imageUrl = "http://localhost:8081";
-
+export const soapNhso =
+  "http://ucws.nhso.go.th:80/ucwstokenp1/UCWSTokenP1?wsdl";
 export const YES = "YES";
 export const NO = "NO";
 export const OK = "ok";

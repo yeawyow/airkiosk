@@ -42,6 +42,9 @@ export const patientCheck = ({ display }, navigete) => {
     const result = await httpClient.post(`${server.PATIENT_URL}/${cid}`);
     if (result.data.msg == "found") {
       dispatch(setStateToSuccess(result.data));
+
+      console.log(JSON.stringify(result.data.cid));
+      // localStorage.setItem("cid", data.cid);
       navigete("/visitRegister");
     } else if (result.data.msg == "notfound") {
       dispatch(
