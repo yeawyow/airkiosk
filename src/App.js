@@ -1,6 +1,6 @@
 import React from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-import { createTheme, ThemeProvider, styled } from "@mui/material/styles";
+import { createTheme, ThemeProvider } from "@mui/material/styles";
 import Home from "./pages/Home";
 import Toolbar from "@mui/material/Toolbar";
 import ManualCid from "./pages/ManualCid";
