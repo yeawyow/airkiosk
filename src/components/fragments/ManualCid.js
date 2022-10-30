@@ -1,13 +1,11 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import Grid from "@mui/material/Grid";
 import { makeStyles } from "@material-ui/core/styles";
 import TextField from "@mui/material/TextField";
-import Logo from "../components/fragments/Logo";
+import Logo from "./Logo";
 import { Typography, Toolbar } from "@mui/material";
-import Notification from "../components/fragments/Notification";
-import * as manualCidAction from "../actions/manualCid.action";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 
@@ -30,17 +28,20 @@ const useStyles = makeStyles((theme) => ({
 
 export default function ManualCid() {
   let navigete = useNavigate();
-
+  const [submitButton, setsubmitButton] = useState(true);
+  const [buttonNumber, setbuttonNumber] = useState(false);
+  const [cid, setcid] = useState([]);
   const dispatch = useDispatch();
-
-  const manualCidReducer = useSelector(
-    ({ manualCidReducer }) => manualCidReducer
-  );
-  const notificationReducer = useSelector(
-    ({ notificationReducer }) => notificationReducer
-  );
+  const length = cid.length;
   const classes = useStyles();
 
+  useEffect(() => {
+    // Update the document title using the browser API
+    if (length == 13) {
+      setsubmitButton(false);
+      setbuttonNumber(true);
+    }
+  });
   return (
     <div>
       <Grid
@@ -50,22 +51,16 @@ export default function ManualCid() {
         direction="column"
         alignItems="center"
       >
-        <Grid item xs={12}>
-          <Logo />
-        </Grid>
         <Grid item>
           <Typography variant="h5">
-            กรุณาระบุหมายเลขบัตรประชาชน หรือ หมายเลข HN
-            {manualCidReducer.display}
+            กรุณาระบุหมายเลขบัตรประชาชน หรือ หมายเลข HN {length}
           </Typography>
         </Grid>
         <Grid item xs={12} lg={12}>
           <TextField
             inputProps={{ style: { fontSize: 80 } }} // font size of input text
             fullWidth
-            value={manualCidReducer.display.join("")}
-            // value={cid}
-            //disabled
+            value={cid.join("")}
             label="หมายเลขบัตรประชาชน"
           />
         </Grid>
@@ -94,8 +89,9 @@ export default function ManualCid() {
                 className={classes.button}
                 onClick={(e) => {
                   e.preventDefault();
-                  dispatch(manualCidAction.btnPress(1));
+                  setcid([...cid, 1]);
                 }}
+                disabled={buttonNumber}
               >
                 <span className={classes.buttonText}>1</span>
               </Button>
@@ -107,8 +103,9 @@ export default function ManualCid() {
                 className={classes.button}
                 onClick={(e) => {
                   e.preventDefault();
-                  dispatch(manualCidAction.btnPress(2));
+                  setcid([...cid, 2]);
                 }}
+                disabled={buttonNumber}
               >
                 <span className={classes.buttonText}>2</span>
               </Button>
@@ -120,8 +117,9 @@ export default function ManualCid() {
                 className={classes.button}
                 onClick={(e) => {
                   e.preventDefault();
-                  dispatch(manualCidAction.btnPress(3));
+                  setcid([...cid, 3]);
                 }}
+                disabled={buttonNumber}
               >
                 <span className={classes.buttonText}>3</span>
               </Button>
@@ -133,8 +131,9 @@ export default function ManualCid() {
                 className={classes.button}
                 onClick={(e) => {
                   e.preventDefault();
-                  dispatch(manualCidAction.btnPress(4));
+                  setcid([...cid, 4]);
                 }}
+                disabled={buttonNumber}
               >
                 <span className={classes.buttonText}>4</span>
               </Button>
@@ -146,8 +145,9 @@ export default function ManualCid() {
                 className={classes.button}
                 onClick={(e) => {
                   e.preventDefault();
-                  dispatch(manualCidAction.btnPress(5));
+                  setcid([...cid, 5]);
                 }}
+                disabled={buttonNumber}
               >
                 <span className={classes.buttonText}>5</span>
               </Button>
@@ -159,8 +159,9 @@ export default function ManualCid() {
                 className={classes.button}
                 onClick={(e) => {
                   e.preventDefault();
-                  dispatch(manualCidAction.btnPress(6));
+                  setcid([...cid, 6]);
                 }}
+                disabled={buttonNumber}
               >
                 <span className={classes.buttonText}>6</span>
               </Button>
@@ -172,8 +173,9 @@ export default function ManualCid() {
                 className={classes.button}
                 onClick={(e) => {
                   e.preventDefault();
-                  dispatch(manualCidAction.btnPress(7));
+                  setcid([...cid, 7]);
                 }}
+                disabled={buttonNumber}
               >
                 <span className={classes.buttonText}>7</span>
               </Button>
@@ -185,8 +187,9 @@ export default function ManualCid() {
                 className={classes.button}
                 onClick={(e) => {
                   e.preventDefault();
-                  dispatch(manualCidAction.btnPress(8));
+                  setcid([...cid, 8]);
                 }}
+                disabled={buttonNumber}
               >
                 <span className={classes.buttonText}>8</span>
               </Button>
@@ -199,8 +202,9 @@ export default function ManualCid() {
                 // onClick={() => onAddArray("9")}
                 onClick={(e) => {
                   e.preventDefault();
-                  dispatch(manualCidAction.btnPress(9));
+                  setcid([...cid, 9]);
                 }}
+                disabled={buttonNumber}
               >
                 <span className={classes.buttonText}>9</span>
               </Button>
@@ -212,7 +216,9 @@ export default function ManualCid() {
                 className={classes.button}
                 onClick={(e) => {
                   e.preventDefault();
-                  dispatch(manualCidAction.clearNumber());
+                  setcid([]);
+                  setbuttonNumber(false);
+                  setsubmitButton(true);
                 }}
               >
                 <span className={classes.buttonText2}>แก้ไข</span>
@@ -226,8 +232,9 @@ export default function ManualCid() {
                 // onClick={() => onAddArray("0")}
                 onClick={(e) => {
                   e.preventDefault();
-                  dispatch(manualCidAction.btnPress(0));
+                  setcid([...cid, 0]);
                 }}
+                disabled={buttonNumber}
               >
                 <span className={classes.buttonText}>0</span>
               </Button>
@@ -238,18 +245,19 @@ export default function ManualCid() {
                 variant="contained"
                 color="success"
                 className={classes.button}
+                disabled={submitButton}
                 // onClick={() => submitArray(numbers.join(""))}
                 //onClick={handlePatient}
                 onClick={(e) => {
                   e.preventDefault();
-                  dispatch(
+                  /* dispatch(
                     manualCidAction.patientCheck(
                       {
                         ...manualCidReducer,
                       },
                       navigete
                     )
-                  );
+                  );*/
                 }}
               >
                 <span className={classes.buttonText2}>ตกลง</span>
@@ -257,7 +265,6 @@ export default function ManualCid() {
             </Grid>
           </Grid>
         </Box>
-        <Notification notify={notificationReducer} />
       </div>
     </div>
   );

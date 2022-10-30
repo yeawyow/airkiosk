@@ -1,100 +1,58 @@
-import React from "react";
-import { Card, Button, Form, Input, Row, Col } from "antd";
+import React, { createContext, useEffect, useState } from "react";
+import Receiver from "./Receiver";
+import mqtt from "mqtt/dist/mqtt";
+import { plugins } from "pretty-format";
 
-const Connection = ({ connect, disconnect, connectBtn }) => {
-  const [form] = Form.useForm();
-  const record = {
-    host: "localhost",
-    clientId: `mqttjs_ + ${Math.random().toString(16).substr(2, 8)}`,
-    port: 10884,
-    username: "",
-    password: "",
-  };
-  const onFinish = (values) => {
-    const { host, clientId, port, username, password } = values;
-    const url = `ws://${host}:${port}/mqtt`;
-    const options = {
-      keepalive: 30,
-      protocolId: "MQTT",
-      protocolVersion: 4,
-      clean: true,
-      reconnectPeriod: 1000,
-      connectTimeout: 30 * 1000,
-      will: {
-        topic: "WillMsg",
-        payload: "Connection Closed abnormally..!",
-        qos: 0,
-        retain: false,
-      },
-      rejectUnauthorized: false,
-    };
-    options.clientId = clientId;
-    options.username = username;
-    options.password = password;
-    connect(url, options);
-  };
+const host = {
+  host: "ws://localhost:10884/mqtt",
+  clientId: `mqttjs_ + ${Math.random().toString(16).substr(2, 8)}`,
+  username: "",
+  password: "",
+};
+const mqttOption = {
+  keepalive: 30,
+  protocolId: "MQTT",
+  protocolVersion: 4,
+  clean: true,
+  reconnectPeriod: 1000,
+  connectTimeout: 30 * 1000,
+  will: {
+    topic: "WillMsg",
+    payload: "Connection Closed abnormally..!",
+    qos: 0,
+    retain: false,
+  },
+  rejectUnauthorized: false,
+};
 
-  const handleConnect = () => {
-    form.submit();
-  };
+const HookMqtt = () => {
+  const [client, setClient] = useState(mqtt.connect("ws://localhost:10884"));
+  const [isSubed, setIsSub] = useState(false);
+  const [payload, setPayload] = useState({});
+  //const [connectStatus, setConnectStatus] = useState("Connect");
 
-  const handleDisconnect = () => {
-    disconnect();
-  };
-
-  const ConnectionForm = (
-    <Form
-      layout="vertical"
-      name="basic"
-      form={form}
-      initialValues={record}
-      onFinish={onFinish}
-    >
-      <Row gutter={20}>
-        <Col span={8}>
-          <Form.Item label="Host" name="host">
-            <Input />
-          </Form.Item>
-        </Col>
-        <Col span={8}>
-          <Form.Item label="Port" name="port">
-            <Input />
-          </Form.Item>
-        </Col>
-        <Col span={8}>
-          <Form.Item label="Client ID" name="clientId">
-            <Input />
-          </Form.Item>
-        </Col>
-        <Col span={8}>
-          <Form.Item label="Username" name="username">
-            <Input />
-          </Form.Item>
-        </Col>
-        <Col span={8}>
-          <Form.Item label="Password" name="password">
-            <Input.Password />
-          </Form.Item>
-        </Col>
-      </Row>
-    </Form>
-  );
+  console.log(payload);
+  useEffect(() => {
+    client.on("connect", (err) => {
+      // setConnectStatus("Connected");
+      client.subscribe("moph/ict/mqtt", (error) => {
+        if (error) {
+          console.log("Subscribe to topics error", error);
+          return;
+        }
+      });
+    });
+    client.on("message", (topic, message) => {
+      const payload = { topic, message: message.toString() };
+      setPayload(payload);
+    });
+  }, [client]);
 
   return (
-    <Card
-      title="Connection"
-      actions={[
-        <Button type="primary" onClick={handleConnect}>
-          {connectBtn}
-        </Button>,
-        <Button danger onClick={handleDisconnect}>
-          Disconnect
-        </Button>,
-      ]}
-    >
-      {ConnectionForm}
-    </Card>
+    <>
+      <Receiver payload={payload} />
+    </>
   );
 };
 
-export default Connection;
+export default HookMqtt;

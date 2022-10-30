@@ -5,7 +5,6 @@ import PatientInfo from "../components/fragments/PatientInfo";
 export default function VisitRegister() {
   return (
     <div>
-      <Logo />
       <PatientInfo />
     </div>
   );

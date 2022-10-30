@@ -1,10 +1,11 @@
 import React from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
-import Home from "./pages/Home";
+import Logo from "./components/fragments/Logo";
+import Grid from "@mui/material/Grid";
 import Toolbar from "@mui/material/Toolbar";
-import ManualCid from "./pages/ManualCid";
-import VisitRegister from "./pages/VisitRegister";
+import IdCard from "./pages/IdCard";
+import ManualCid from "./components/fragments/ManualCid";
 
 const theme = createTheme({
   typography: {
@@ -22,16 +23,22 @@ const theme = createTheme({
 function App() {
   return (
     <div>
-      <ThemeProvider theme={theme}>
-        <Router>
-          <Toolbar variant="dense" />
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/number" element={<ManualCid />}></Route>
-            <Route path="/visitRegister" element={<VisitRegister />}></Route>
-          </Routes>
-        </Router>
-      </ThemeProvider>
+      <Grid spacing={3}>
+        <Grid item xs={12}>
+          <Logo />
+        </Grid>
+        <Grid item xs={12}>
+          <ThemeProvider theme={theme}>
+            <Router>
+              <Toolbar variant="dense" />
+              <Routes>
+                <Route path="/" element={<IdCard />}></Route>
+                <Route path="/keyId" element={<ManualCid />}></Route>
+              </Routes>
+            </Router>
+          </ThemeProvider>
+        </Grid>
+      </Grid>
     </div>
   );
 }

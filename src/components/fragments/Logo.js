@@ -2,7 +2,7 @@ import React from "react";
 import Grid from "@mui/material/Grid";
 import logo from "../../images/logomoph.png";
 import { Typography } from "@mui/material";
-
+import Datetime from "./Datetime";
 export default function Logo() {
   return (
     <div>
@@ -17,6 +17,7 @@ export default function Logo() {
         </Grid>
         <Grid item>
           <Typography variant="h2">โรงพยาบาลอากาศอำนวย</Typography>
+          <Datetime />
         </Grid>
       </Grid>
     </div>
