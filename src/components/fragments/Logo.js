@@ -1,6 +1,6 @@
 import React from "react";
 import Grid from "@mui/material/Grid";
-import logo from "../../images/logomoph.png";
+
 import { Typography } from "@mui/material";
 import Datetime from "./Datetime";
 export default function Logo() {
@@ -13,7 +13,7 @@ export default function Logo() {
         alignItems="center"
       >
         <Grid item>
-          <img src={logo} width={"200"} />
+          <img src="././images/logomoph.png" width={"200"} />
         </Grid>
         <Grid item>
           <Typography variant="h2">โรงพยาบาลอากาศอำนวย</Typography>
