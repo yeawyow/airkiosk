@@ -13,7 +13,7 @@ export default function Logo() {
         alignItems="center"
       >
         <Grid item>
-          <img src="././images/logomoph.png" width={"200"} />
+          <img src="././images/moph-logo.gif" width={"200"} />
         </Grid>
         <Grid item>
           <Typography variant="h2">โรงพยาบาลอากาศอำนวย</Typography>

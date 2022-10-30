@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
-import { Card, List } from "antd";
+import Card from "@mui/material/Card";
+import List from "@mui/material/List";
 
 const Receiver = ({ payload }) => {
   const [messages, setMessages] = useState([]);

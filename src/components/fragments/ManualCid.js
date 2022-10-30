@@ -8,6 +8,7 @@ import Logo from "./Logo";
 import { Typography, Toolbar } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
+import Patient from "../../pages/Patient";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -53,7 +54,7 @@ export default function ManualCid() {
       >
         <Grid item>
           <Typography variant="h5">
-            กรุณาระบุหมายเลขบัตรประชาชน หรือ หมายเลข HN {length}
+            กรุณาระบุหมายเลขบัตรประชาชน หรือ หมายเลข HN {cid}
           </Typography>
         </Grid>
         <Grid item xs={12} lg={12}>
