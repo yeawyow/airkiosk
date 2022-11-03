@@ -1,15 +1,19 @@
-import React, { createContext, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import Receiver from "./Receiver";
+import { useSelector, useDispatch } from "react-redux";
 import mqtt from "mqtt/dist/mqtt";
-import { plugins } from "pretty-format";
+import { setCardId, setcardStatus, increment } from "../../app/conMqttSlice";
+import { Card, List } from "antd";
 
-const host = {
+//import { plugins } from "pretty-format";
+
+/*const host = {
   host: "ws://localhost:10884/mqtt",
   clientId: `mqttjs_ + ${Math.random().toString(16).substr(2, 8)}`,
   username: "",
   password: "",
 };
-const mqttOption = {
+/*const mqttOption = {
   keepalive: 30,
   protocolId: "MQTT",
   protocolVersion: 4,
@@ -23,15 +27,15 @@ const mqttOption = {
     retain: false,
   },
   rejectUnauthorized: false,
-};
+};*/
 
 const HookMqtt = () => {
   const [client, setClient] = useState(mqtt.connect("ws://localhost:10884"));
-  const [isSubed, setIsSub] = useState(false);
-  const [payload, setPayload] = useState({});
+  const cardStatus = useSelector((state) => state.mqttcon.cardStatus);
+  const cardId = useSelector((state) => state.mqttcon.cardId);
+  const dispatch = useDispatch();
   //const [connectStatus, setConnectStatus] = useState("Connect");
 
-  console.log(payload);
   useEffect(() => {
     client.on("connect", (err) => {
       // setConnectStatus("Connected");
@@ -44,14 +48,22 @@ const HookMqtt = () => {
     });
     client.on("message", (topic, message) => {
       const payload = { topic, message: message.toString() };
-      setPayload(payload);
+
+      dispatch(setCardId(payload));
+      dispatch(setcardStatus(payload.message));
+      // setPayload(payload);
     });
   }, [client]);
+  if (cardStatus === "CARD_EXITED") {
+    // console.log("55", cardStatus);
+  } else {
+    // console.log("66", cardStatus);
+  }
 
   return (
-    <>
-      <Receiver payload={payload} />
-    </>
+    <div>
+      <Receiver payload={cardId} />
+    </div>
   );
 };
 
