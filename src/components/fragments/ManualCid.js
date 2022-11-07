@@ -4,11 +4,9 @@ import Button from "@mui/material/Button";
 import Grid from "@mui/material/Grid";
 import { makeStyles } from "@material-ui/core/styles";
 import TextField from "@mui/material/TextField";
-import Logo from "./Logo";
 import { Typography, Toolbar } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import Patient from "../../pages/Patient";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -28,7 +26,8 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function ManualCid() {
-  let navigete = useNavigate();
+  let navigate = useNavigate();
+  const cardId = useSelector((state) => state.mqttcon.cardId);
   const [submitButton, setsubmitButton] = useState(true);
   const [buttonNumber, setbuttonNumber] = useState(false);
   const [cid, setcid] = useState([]);
@@ -54,7 +53,7 @@ export default function ManualCid() {
       >
         <Grid item>
           <Typography variant="h5">
-            กรุณาระบุหมายเลขบัตรประชาชน หรือ หมายเลข HN {cid}
+            กรุณาระบุหมายเลขบัตรประชาชน หรือ หมายเลข HN
           </Typography>
         </Grid>
         <Grid item xs={12} lg={12}>

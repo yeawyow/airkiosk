@@ -2,9 +2,8 @@ import React, { useEffect, useState } from "react";
 import Receiver from "./Receiver";
 import { useSelector, useDispatch } from "react-redux";
 import mqtt from "mqtt/dist/mqtt";
-import { setCardId, setcardStatus, increment } from "../../app/conMqttSlice";
-import { Card, List } from "antd";
-
+import { setCardId } from "../../app/conMqttSlice";
+import { useNavigate } from "react-router-dom";
 //import { plugins } from "pretty-format";
 
 /*const host = {
@@ -31,11 +30,9 @@ import { Card, List } from "antd";
 
 const HookMqtt = () => {
   const [client, setClient] = useState(mqtt.connect("ws://localhost:10884"));
-  const cardStatus = useSelector((state) => state.mqttcon.cardStatus);
   const cardId = useSelector((state) => state.mqttcon.cardId);
   const dispatch = useDispatch();
-  //const [connectStatus, setConnectStatus] = useState("Connect");
-
+  let navigate = useNavigate();
   useEffect(() => {
     client.on("connect", (err) => {
       // setConnectStatus("Connected");
@@ -50,19 +47,20 @@ const HookMqtt = () => {
       const payload = { topic, message: message.toString() };
 
       dispatch(setCardId(payload));
-      dispatch(setcardStatus(payload.message));
+      //   navigate("/keyid");
+
       // setPayload(payload);
     });
   }, [client]);
-  if (cardStatus === "CARD_EXITED") {
-    // console.log("55", cardStatus);
-  } else {
-    // console.log("66", cardStatus);
+
+  if (cardId) {
+    var jj = JSON.parse(cardId.message);
+    console.log(`cid`, jj?.data?.cid);
   }
 
   return (
     <div>
-      <Receiver payload={cardId} />
+      <Receiver payload={jj} />
     </div>
   );
 };

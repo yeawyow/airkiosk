@@ -10,17 +10,7 @@ const Receiver = ({ payload }) => {
     }
   }, [payload]);
 
-  var mapped = messages.map(function (obj) {
-    return {
-      answer_content: obj.message,
-      data: {
-        user_id: obj.data,
-        user_name: obj.user_name,
-      },
-    };
-  });
-
-  console.log(mapped);
+  // console.log(`messages`, mapped?.status);
 
   const renderListItem = (item) => (
     <List.Item>
