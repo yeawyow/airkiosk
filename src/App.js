@@ -6,6 +6,7 @@ import Grid from "@mui/material/Grid";
 import Toolbar from "@mui/material/Toolbar";
 import IdCard from "./pages/IdCard";
 import ManualCid from "./components/fragments/ManualCid";
+import Patient from "./pages/Patient";
 
 const theme = createTheme({
   typography: {
@@ -33,7 +34,8 @@ function App() {
               <Toolbar variant="dense" />
               <Routes>
                 <Route path="/" element={<IdCard />}></Route>
-                <Route path="/keyId" element={<ManualCid />}></Route>
+                <Route path="/buttonkey" element={<ManualCid />}></Route>
+                <Route path="/patient" element={<Patient />}></Route>
               </Routes>
             </Router>
           </ThemeProvider>
