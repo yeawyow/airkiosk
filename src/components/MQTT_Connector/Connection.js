@@ -2,8 +2,9 @@ import React, { useEffect, useState } from "react";
 import Receiver from "./Receiver";
 import { useSelector, useDispatch } from "react-redux";
 import mqtt from "mqtt/dist/mqtt";
-import { setCardId } from "../../app/conMqttSlice";
+import { setCardId, setcardImage, setcardStatus } from "../../app/conMqttSlice";
 import { useNavigate } from "react-router-dom";
+
 //import { plugins } from "pretty-format";
 
 /*const host = {
@@ -31,6 +32,7 @@ import { useNavigate } from "react-router-dom";
 const HookMqtt = () => {
   const [client, setClient] = useState(mqtt.connect("ws://localhost:10884"));
   const cardId = useSelector((state) => state.mqttcon.cardId);
+  const cardStatus = useSelector((state) => state.mqttcon.cardStatus);
   const dispatch = useDispatch();
   let navigate = useNavigate();
   useEffect(() => {
@@ -45,22 +47,31 @@ const HookMqtt = () => {
     });
     client.on("message", (topic, message) => {
       const payload = { topic, message: message.toString() };
+      // console.log(payload);
+      var cardData = JSON.parse(payload.message);
+      if (cardData?.status === "DATA_RETRIEVED") {
+        dispatch(setCardId(cardData));
+        dispatch(setcardStatus(cardData.status));
+      } else if (cardData?.status === "IMAGE_RETRIEVED") {
+        dispatch(setcardImage(cardData?.data));
+        dispatch(setcardStatus(cardData.status));
+      } else if (cardData?.status === "CARD_EXITED") {
+        dispatch(setCardId(null));
+        dispatch(setcardImage(null));
+        dispatch(setcardStatus(cardData.status));
+      }
 
-      dispatch(setCardId(payload));
       //   navigate("/keyid");
-
-      // setPayload(payload);
     });
   }, [client]);
 
-  if (cardId) {
-    var jj = JSON.parse(cardId.message);
-    console.log(`cid`, jj?.data?.cid);
+  if (cardStatus !== "CARD_EXITED") {
+    navigate("/patient");
   }
-
   return (
     <div>
-      <Receiver payload={jj} />
+      {/*}  <Receiver payload={jj} />{*/}
+      {/*} {cardStatus} {*/}
     </div>
   );
 };

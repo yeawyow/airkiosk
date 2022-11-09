@@ -7,6 +7,7 @@ import Toolbar from "@mui/material/Toolbar";
 import IdCard from "./pages/IdCard";
 import ManualCid from "./components/fragments/ManualCid";
 import Patient from "./pages/Patient";
+import MQTTConnect from "./components/MQTT_Connector/Connection";
 
 const theme = createTheme({
   typography: {
@@ -31,7 +32,9 @@ function App() {
         <Grid item xs={12}>
           <ThemeProvider theme={theme}>
             <Router>
+              <MQTTConnect />
               <Toolbar variant="dense" />
+
               <Routes>
                 <Route path="/" element={<IdCard />}></Route>
                 <Route path="/buttonkey" element={<ManualCid />}></Route>
