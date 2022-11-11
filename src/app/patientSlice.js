@@ -3,6 +3,9 @@ const initialState = {
   patientData: {
     hn: "00049915",
     fullname: "มาตุภูมิ ใครบุตร",
+    cid: "3460100321128",
+    age_y: "40",
+    tell: "0965343656",
   },
 };
 export const patientSlice = createSlice({

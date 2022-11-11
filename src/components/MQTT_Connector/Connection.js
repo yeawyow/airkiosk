@@ -4,6 +4,7 @@ import { useSelector, useDispatch } from "react-redux";
 import mqtt from "mqtt/dist/mqtt";
 import { setCardId, setcardImage, setcardStatus } from "../../app/conMqttSlice";
 import { useNavigate } from "react-router-dom";
+import { apiMqttUrl } from "../../Constants";
 
 //import { plugins } from "pretty-format";
 
@@ -30,7 +31,7 @@ import { useNavigate } from "react-router-dom";
 };*/
 
 const HookMqtt = () => {
-  const [client, setClient] = useState(mqtt.connect("ws://localhost:10884"));
+  const [client, setClient] = useState(mqtt.connect(apiMqttUrl));
   const cardId = useSelector((state) => state.mqttcon.cardId);
   const cardStatus = useSelector((state) => state.mqttcon.cardStatus);
   const dispatch = useDispatch();
@@ -65,9 +66,9 @@ const HookMqtt = () => {
     });
   }, [client]);
 
-  if (cardStatus !== "CARD_EXITED") {
-    navigate("/patient");
-  }
+  /*if (cardStatus !== "CARD_EXITED") {
+    //  navigate("/patient");
+  }*/
   return (
     <div>
       {/*}  <Receiver payload={jj} />{*/}

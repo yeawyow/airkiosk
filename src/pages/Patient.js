@@ -44,23 +44,66 @@ export default function Patient() {
                 <Paper variant="outlined" />
               </Box>
             </Grid>
-            <Grid item sm={4}>
-              <Box>
-                <Stack direction="row" alignItems="center" gap={1}>
-                  <Typography variant="h5">HN:</Typography>
-                  <Typography variant="h5">{patient.hn}</Typography>
-                </Stack>
-              </Box>
-            </Grid>
-            <Grid item xs={12} sm={4}>
+            <Grid item sm={5}>
               <Box>
                 <Stack direction="row" alignItems="center" gap={1}>
                   <Typography variant="h5">ชื่อ-สกุล:</Typography>
                   <Typography variant="h5">{patient.fullname}</Typography>
                 </Stack>
               </Box>
+              <Box>
+                <Stack direction="row" alignItems="center" gap={1}>
+                  <Typography variant="h5">หมายเลขบัตร:</Typography>
+                  <Typography variant="h5">{patient.cid}</Typography>
+                </Stack>
+              </Box>
+              <Box>
+                <Stack direction="row" alignItems="center" gap={1}>
+                  <Typography variant="h5">สิทธิหลัก:</Typography>
+                  <Typography variant="h5">{}</Typography>
+                </Stack>
+              </Box>
+              <Box>
+                <Stack direction="row" alignItems="center" gap={1}>
+                  <Typography variant="h5">สิทธิรอง:</Typography>
+                  <Typography variant="h5">{}</Typography>
+                </Stack>
+              </Box>
+              <Box>
+                <Stack direction="row" alignItems="center" gap={1}>
+                  <Typography variant="h5">เบอร์โทรศัพท์:</Typography>
+                  <Typography variant="h5">{patient.tell}</Typography>
+                </Stack>
+              </Box>
             </Grid>
-            <Grid item xs={12}></Grid>
+            <Grid item xs={12} sm={3}>
+              <Box>
+                <Stack direction="row" alignItems="center" gap={1}>
+                  <Typography variant="h5">HN:</Typography>
+                  <Typography variant="h5">{patient.hn}</Typography>
+                </Stack>
+              </Box>
+              <Box>
+                <Stack direction="row" alignItems="center" gap={1}>
+                  <Typography variant="h5">อายุ:</Typography>
+                  <Typography variant="h5">{patient.age_y}</Typography>
+                </Stack>
+              </Box>
+            </Grid>
+          </Grid>
+        </Paper>
+      </Container>
+      <Container component="main" maxWidth="lg" sx={{ mb: 4 }}>
+        <Paper
+          variant="outlined"
+          sx={{ my: { xs: 3, md: 3 }, p: { xs: 2, md: 3 } }}
+        >
+          <Typography variant="h6" gutterBottom>
+            เข้ารับบริการ
+          </Typography>
+          <Grid container spacing={2}>
+            <Grid item sm={6}></Grid>
+            <Grid item sm={6}></Grid>
           </Grid>
         </Paper>
       </Container>

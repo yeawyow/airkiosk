@@ -16,8 +16,9 @@ export const STOCK_EDIT_SUCCESS = "STOCK_EDIT_SUCCESS";
 export const STOCK_EDIT_FAILED = "STOCK_EDIT_FAILED";
 export const STOCK_EDIT_INITIALED = "STOCK_EDIT_INITIALED";
 
-export const apiUrl = "http://localhost:8081/api/v2";
-export const imageUrl = "http://localhost:8081";
+export const apiHisUrl = "http://localhost:8081/api/";
+export const apiMqttUrl = "ws://localhost:10884";
+export const smartcardAgent = "http://localhost:8189";
 export const soapNhso =
   "http://ucws.nhso.go.th:80/ucwstokenp1/UCWSTokenP1?wsdl";
 export const YES = "YES";
