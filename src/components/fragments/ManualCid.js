@@ -7,6 +7,7 @@ import TextField from "@mui/material/TextField";
 import { Typography, Toolbar } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
+import { useForm, Controller } from "react-hook-form";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -35,6 +36,10 @@ export default function ManualCid() {
   const length = cid.length;
   const classes = useStyles();
 
+  const { control, handleSubmit } = useForm();
+  const submitForm = (data) => {
+    console.log(data);
+  };
   useEffect(() => {
     // Update the document title using the browser API
     if (length == 13) {
@@ -44,228 +49,229 @@ export default function ManualCid() {
   });
   return (
     <div>
-      <Grid
-        spacing={3}
-        container
-        justifyContent={"center"}
-        direction="column"
-        alignItems="center"
-      >
-        <Grid item>
-          <Typography variant="h5">
-            กรุณาระบุหมายเลขบัตรประชาชน หรือ หมายเลข HN
-          </Typography>
-        </Grid>
-        <Grid item xs={12} lg={12}>
-          <TextField
-            inputProps={{ style: { fontSize: 80 } }} // font size of input text
-            fullWidth
-            value={cid.join("")}
-            label="หมายเลขบัตรประชาชน"
-          />
-        </Grid>
-      </Grid>
-      <Toolbar />
-      <div className={classes.root}>
-        <Box
-          sx={{
-            width: 800,
-
-            // backgroundColor: "primary.dark",
-          }}
+      <form onSubmit={handleSubmit(submitForm)}>
+        <Grid
+          spacing={3}
+          container
+          justifyContent={"center"}
+          direction="column"
+          alignItems="center"
         >
-          <Grid
-            container
-            display="flex"
-            spacing={2}
-            alignItems="center"
-            justifyContent="center"
-          >
-            <Grid item xs={9}></Grid>
-            <Grid item xs={4}>
-              <Button
-                variant="contained"
-                color="primary"
-                className={classes.button}
-                onClick={(e) => {
-                  e.preventDefault();
-                  setcid([...cid, 1]);
-                }}
-                disabled={buttonNumber}
-              >
-                <span className={classes.buttonText}>1</span>
-              </Button>
-            </Grid>
-            <Grid item xs={4}>
-              <Button
-                variant="contained"
-                color="primary"
-                className={classes.button}
-                onClick={(e) => {
-                  e.preventDefault();
-                  setcid([...cid, 2]);
-                }}
-                disabled={buttonNumber}
-              >
-                <span className={classes.buttonText}>2</span>
-              </Button>
-            </Grid>
-            <Grid item xs={4}>
-              <Button
-                variant="contained"
-                color="primary"
-                className={classes.button}
-                onClick={(e) => {
-                  e.preventDefault();
-                  setcid([...cid, 3]);
-                }}
-                disabled={buttonNumber}
-              >
-                <span className={classes.buttonText}>3</span>
-              </Button>
-            </Grid>
-            <Grid item xs={4}>
-              <Button
-                variant="contained"
-                color="primary"
-                className={classes.button}
-                onClick={(e) => {
-                  e.preventDefault();
-                  setcid([...cid, 4]);
-                }}
-                disabled={buttonNumber}
-              >
-                <span className={classes.buttonText}>4</span>
-              </Button>
-            </Grid>
-            <Grid item xs={4}>
-              <Button
-                variant="contained"
-                color="primary"
-                className={classes.button}
-                onClick={(e) => {
-                  e.preventDefault();
-                  setcid([...cid, 5]);
-                }}
-                disabled={buttonNumber}
-              >
-                <span className={classes.buttonText}>5</span>
-              </Button>
-            </Grid>
-            <Grid item xs={4}>
-              <Button
-                variant="contained"
-                color="primary"
-                className={classes.button}
-                onClick={(e) => {
-                  e.preventDefault();
-                  setcid([...cid, 6]);
-                }}
-                disabled={buttonNumber}
-              >
-                <span className={classes.buttonText}>6</span>
-              </Button>
-            </Grid>
-            <Grid item xs={4}>
-              <Button
-                variant="contained"
-                color="primary"
-                className={classes.button}
-                onClick={(e) => {
-                  e.preventDefault();
-                  setcid([...cid, 7]);
-                }}
-                disabled={buttonNumber}
-              >
-                <span className={classes.buttonText}>7</span>
-              </Button>
-            </Grid>
-            <Grid item xs={4}>
-              <Button
-                variant="contained"
-                color="primary"
-                className={classes.button}
-                onClick={(e) => {
-                  e.preventDefault();
-                  setcid([...cid, 8]);
-                }}
-                disabled={buttonNumber}
-              >
-                <span className={classes.buttonText}>8</span>
-              </Button>
-            </Grid>
-            <Grid item xs={4}>
-              <Button
-                variant="contained"
-                color="primary"
-                className={classes.button}
-                // onClick={() => onAddArray("9")}
-                onClick={(e) => {
-                  e.preventDefault();
-                  setcid([...cid, 9]);
-                }}
-                disabled={buttonNumber}
-              >
-                <span className={classes.buttonText}>9</span>
-              </Button>
-            </Grid>
-            <Grid item xs={4}>
-              <Button
-                variant="contained"
-                color="warning"
-                className={classes.button}
-                onClick={(e) => {
-                  e.preventDefault();
-                  setcid([]);
-                  setbuttonNumber(false);
-                  setsubmitButton(true);
-                }}
-              >
-                <span className={classes.buttonText2}>แก้ไข</span>
-              </Button>
-            </Grid>
-            <Grid item xs={4}>
-              <Button
-                variant="contained"
-                color="primary"
-                className={classes.button}
-                // onClick={() => onAddArray("0")}
-                onClick={(e) => {
-                  e.preventDefault();
-                  setcid([...cid, 0]);
-                }}
-                disabled={buttonNumber}
-              >
-                <span className={classes.buttonText}>0</span>
-              </Button>
-            </Grid>
-            <Grid item xs={4}>
-              <Button
-                //disabled={buttonOk}
-                variant="contained"
-                color="success"
-                className={classes.button}
-                disabled={submitButton}
-                // onClick={() => submitArray(numbers.join(""))}
-                //onClick={handlePatient}
-                onClick={(e) => {
-                  e.preventDefault();
-                  /* dispatch(
-                    manualCidAction.patientCheck(
-                      {
-                        ...manualCidReducer,
-                      },
-                      navigete
-                    )
-                  );*/
-                }}
-              >
-                <span className={classes.buttonText2}>ตกลง</span>
-              </Button>
-            </Grid>
+          <Grid item>
+            <Typography variant="h5">
+              กรุณาระบุหมายเลขบัตรประชาชน หรือ หมายเลข HN
+            </Typography>
           </Grid>
-        </Box>
-      </div>
+          <Grid item xs={12} lg={12}>
+            <Controller
+              name="cidNumber"
+              control={control}
+              render={({ field: { onChange, value } }) => (
+                <TextField
+                  label="เลขบัตรประชาชน"
+                  inputProps={{ style: { fontSize: 80 } }} // font size of input text
+                  fullWidth
+                  value={cid.join("")}
+                  onChange={onChange}
+                />
+              )}
+            />
+
+            <TextField label="หมายเลขบัตรประชาชน" />
+          </Grid>
+        </Grid>
+        <Toolbar />
+        <div className={classes.root}>
+          <Box
+            sx={{
+              width: 800,
+
+              // backgroundColor: "primary.dark",
+            }}
+          >
+            <Grid
+              container
+              display="flex"
+              spacing={2}
+              alignItems="center"
+              justifyContent="center"
+            >
+              <Grid item xs={9}></Grid>
+              <Grid item xs={4}>
+                <Button
+                  variant="contained"
+                  color="primary"
+                  className={classes.button}
+                  onClick={(e) => {
+                    e.preventDefault();
+                    setcid([...cid, 1]);
+                  }}
+                  disabled={buttonNumber}
+                >
+                  <span className={classes.buttonText}>1</span>
+                </Button>
+              </Grid>
+              <Grid item xs={4}>
+                <Button
+                  variant="contained"
+                  color="primary"
+                  className={classes.button}
+                  onClick={(e) => {
+                    e.preventDefault();
+                    setcid([...cid, 2]);
+                  }}
+                  disabled={buttonNumber}
+                >
+                  <span className={classes.buttonText}>2</span>
+                </Button>
+              </Grid>
+              <Grid item xs={4}>
+                <Button
+                  variant="contained"
+                  color="primary"
+                  className={classes.button}
+                  onClick={(e) => {
+                    e.preventDefault();
+                    setcid([...cid, 3]);
+                  }}
+                  disabled={buttonNumber}
+                >
+                  <span className={classes.buttonText}>3</span>
+                </Button>
+              </Grid>
+              <Grid item xs={4}>
+                <Button
+                  variant="contained"
+                  color="primary"
+                  className={classes.button}
+                  onClick={(e) => {
+                    e.preventDefault();
+                    setcid([...cid, 4]);
+                  }}
+                  disabled={buttonNumber}
+                >
+                  <span className={classes.buttonText}>4</span>
+                </Button>
+              </Grid>
+              <Grid item xs={4}>
+                <Button
+                  variant="contained"
+                  color="primary"
+                  className={classes.button}
+                  onClick={(e) => {
+                    e.preventDefault();
+                    setcid([...cid, 5]);
+                  }}
+                  disabled={buttonNumber}
+                >
+                  <span className={classes.buttonText}>5</span>
+                </Button>
+              </Grid>
+              <Grid item xs={4}>
+                <Button
+                  variant="contained"
+                  color="primary"
+                  className={classes.button}
+                  onClick={(e) => {
+                    e.preventDefault();
+                    setcid([...cid, 6]);
+                  }}
+                  disabled={buttonNumber}
+                >
+                  <span className={classes.buttonText}>6</span>
+                </Button>
+              </Grid>
+              <Grid item xs={4}>
+                <Button
+                  variant="contained"
+                  color="primary"
+                  className={classes.button}
+                  onClick={(e) => {
+                    e.preventDefault();
+                    setcid([...cid, 7]);
+                  }}
+                  disabled={buttonNumber}
+                >
+                  <span className={classes.buttonText}>7</span>
+                </Button>
+              </Grid>
+              <Grid item xs={4}>
+                <Button
+                  variant="contained"
+                  color="primary"
+                  className={classes.button}
+                  onClick={(e) => {
+                    e.preventDefault();
+                    setcid([...cid, 8]);
+                  }}
+                  disabled={buttonNumber}
+                >
+                  <span className={classes.buttonText}>8</span>
+                </Button>
+              </Grid>
+              <Grid item xs={4}>
+                <Button
+                  variant="contained"
+                  color="primary"
+                  className={classes.button}
+                  // onClick={() => onAddArray("9")}
+                  onClick={(e) => {
+                    e.preventDefault();
+                    setcid([...cid, 9]);
+                  }}
+                  disabled={buttonNumber}
+                >
+                  <span className={classes.buttonText}>9</span>
+                </Button>
+              </Grid>
+              <Grid item xs={4}>
+                <Button
+                  variant="contained"
+                  color="warning"
+                  className={classes.button}
+                  onClick={(e) => {
+                    e.preventDefault();
+                    setcid([]);
+                    setbuttonNumber(false);
+                    setsubmitButton(true);
+                  }}
+                >
+                  <span className={classes.buttonText2}>แก้ไข</span>
+                </Button>
+              </Grid>
+              <Grid item xs={4}>
+                <Button
+                  variant="contained"
+                  color="primary"
+                  className={classes.button}
+                  // onClick={() => onAddArray("0")}
+                  onClick={(e) => {
+                    e.preventDefault();
+                    setcid([...cid, 0]);
+                  }}
+                  disabled={buttonNumber}
+                >
+                  <span className={classes.buttonText}>0</span>
+                </Button>
+              </Grid>
+              <Grid item xs={4}>
+                <Button
+                  //disabled={buttonOk}
+                  variant="contained"
+                  color="success"
+                  className={classes.button}
+                  disabled={submitButton}
+                  type="submit"
+                  // onClick={() => submitArray(numbers.join(""))}
+                  //onClick={handlePatient}
+                >
+                  <span className={classes.buttonText2}>ตกลง</span>
+                </Button>
+              </Grid>
+            </Grid>
+          </Box>
+        </div>
+      </form>
     </div>
   );
 }
