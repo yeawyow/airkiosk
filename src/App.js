@@ -37,7 +37,7 @@ function App() {
 
               <Routes>
                 <Route path="/" element={<IdCard />}></Route>
-                <Route path="/buttonkey" element={<ManualCid />}></Route>
+                <Route path="/number" element={<ManualCid />}></Route>
                 <Route path="/patient" element={<Patient />}></Route>
               </Routes>
             </Router>
