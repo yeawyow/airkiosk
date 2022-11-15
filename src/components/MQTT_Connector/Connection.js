@@ -5,6 +5,7 @@ import mqtt from "mqtt/dist/mqtt";
 import { setCardId, setcardImage, setcardStatus } from "../../app/conMqttSlice";
 import { useNavigate } from "react-router-dom";
 import { apiMqttUrl } from "../../Constants";
+import { setPatientData } from "../../app/patientSlice";
 
 //import { plugins } from "pretty-format";
 
@@ -32,8 +33,9 @@ import { apiMqttUrl } from "../../Constants";
 
 const HookMqtt = () => {
   const [client, setClient] = useState(mqtt.connect(apiMqttUrl));
-  const cardId = useSelector((state) => state.mqttcon.cardId);
-  const cardStatus = useSelector((state) => state.mqttcon.cardStatus);
+  const cardId = useSelector((state) => state.mqttcon?.cardId);
+  const cardStatus = useSelector((state) => state.mqttcon?.cardStatus);
+  const patientData = useSelector((state) => state.patient?.patientData);
   const dispatch = useDispatch();
   let navigate = useNavigate();
   useEffect(() => {
@@ -46,23 +48,26 @@ const HookMqtt = () => {
         }
       });
     });
+
     client.on("message", (topic, message) => {
       const payload = { topic, message: message.toString() };
+
       // console.log(payload);
       var cardData = JSON.parse(payload.message);
       if (cardData?.status === "DATA_RETRIEVED") {
         dispatch(setCardId(cardData));
         dispatch(setcardStatus(cardData.status));
+        dispatch(setPatientData({ ...patientData, cid: cardData?.data?.cid }));
       } else if (cardData?.status === "IMAGE_RETRIEVED") {
         dispatch(setcardImage(cardData?.data));
         dispatch(setcardStatus(cardData.status));
+        navigate("/patient");
       } else if (cardData?.status === "CARD_EXITED") {
         dispatch(setCardId(null));
         dispatch(setcardImage(null));
         dispatch(setcardStatus(cardData.status));
+        dispatch(setPatientData({ ...patientData, cid: null }));
       }
-
-      //   navigate("/keyid");
     });
   }, [client]);
 

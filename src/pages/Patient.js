@@ -10,18 +10,19 @@ import TextField from "@mui/material/TextField";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import Grid from "@mui/material/Unstable_Grid2";
 import { useDispatch, useSelector } from "react-redux";
-import MQTTConnect from "../components/MQTT_Connector/Connection";
+import { checkPatient } from "../app/patientSlice";
 import { useNavigate } from "react-router-dom";
+//import PostsList from "../app/posts/PostsList";
 
 export default function Patient() {
   let navigate = useNavigate();
-  const { patientData } = useSelector((state) => state.patient?.patientData);
+  const patientData = useSelector((state) => state.patient?.patientData);
   //const cid = useSelector((state) => state.mqttcon?.cardId?.data?.cid);
-  const { cid, hn, fullname, age_y, tell } = patientData;
+
   const dispatch = useDispatch();
   useEffect(() => {
-    if (cid) {
-      console.log("5555");
+    if (patientData?.cid) {
+      dispatch(checkPatient());
     } else {
       navigate("/");
     }

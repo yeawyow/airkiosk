@@ -29,15 +29,12 @@ const useStyles = makeStyles((theme) => ({
 export default function ManualCid() {
   let navigate = useNavigate();
   const cardId = useSelector((state) => state.mqttcon.cardId);
-  const patientData = useSelector((state) => state.patient.patientData);
   const [submitButton, setsubmitButton] = useState(true);
   const [buttonNumber, setbuttonNumber] = useState(false);
-
   const [cid, setcid] = useState([]);
   const length = cid.length;
   const classes = useStyles();
   const dispatch = useDispatch();
-
   useEffect(() => {
     // Update the document title using the browser API
     if (length === 13) {
@@ -45,13 +42,9 @@ export default function ManualCid() {
       setbuttonNumber(true);
     }
   });
-
-  async function handlePatient() {
-    await dispatch(
-      setPatientData({ patientData: { ...patientData, cid: cid.join("") } })
-    );
-    await navigate("/patient");
-  }
+  const handlePatient = () => {
+    navigate("/patient");
+  };
   return (
     <div>
       <Grid
