@@ -11,13 +11,21 @@ import FormControlLabel from "@mui/material/FormControlLabel";
 import Grid from "@mui/material/Unstable_Grid2";
 import { useDispatch, useSelector } from "react-redux";
 import MQTTConnect from "../components/MQTT_Connector/Connection";
-import PersonIcon from "@mui/icons-material/Person";
-export default function Patient() {
-  const patient = useSelector((state) => state.patient?.patientData);
-  const cid = useSelector((state) => state.mqttcon?.cardId?.data?.cid);
+import { useNavigate } from "react-router-dom";
 
+export default function Patient() {
+  let navigate = useNavigate();
+  const { patientData } = useSelector((state) => state.patient?.patientData);
+  //const cid = useSelector((state) => state.mqttcon?.cardId?.data?.cid);
+  const { cid, hn, fullname, age_y, tell } = patientData;
   const dispatch = useDispatch();
-  useEffect(() => {});
+  useEffect(() => {
+    if (cid) {
+      console.log("5555");
+    } else {
+      navigate("/");
+    }
+  });
   return (
     <div>
       <Container component="main" maxWidth="lg" sx={{ mb: 4 }}>
@@ -48,13 +56,13 @@ export default function Patient() {
               <Box>
                 <Stack direction="row" alignItems="center" gap={1}>
                   <Typography variant="h5">ชื่อ-สกุล:</Typography>
-                  <Typography variant="h5">{patient.fullname}</Typography>
+                  <Typography variant="h5">{}</Typography>
                 </Stack>
               </Box>
               <Box>
                 <Stack direction="row" alignItems="center" gap={1}>
                   <Typography variant="h5">หมายเลขบัตร:</Typography>
-                  <Typography variant="h5">{patient.cid}</Typography>
+                  <Typography variant="h5">{}</Typography>
                 </Stack>
               </Box>
               <Box>
@@ -72,7 +80,7 @@ export default function Patient() {
               <Box>
                 <Stack direction="row" alignItems="center" gap={1}>
                   <Typography variant="h5">เบอร์โทรศัพท์:</Typography>
-                  <Typography variant="h5">{patient.tell}</Typography>
+                  <Typography variant="h5">{}</Typography>
                 </Stack>
               </Box>
             </Grid>
@@ -80,13 +88,13 @@ export default function Patient() {
               <Box>
                 <Stack direction="row" alignItems="center" gap={1}>
                   <Typography variant="h5">HN:</Typography>
-                  <Typography variant="h5">{patient.hn}</Typography>
+                  <Typography variant="h5">{}</Typography>
                 </Stack>
               </Box>
               <Box>
                 <Stack direction="row" alignItems="center" gap={1}>
                   <Typography variant="h5">อายุ:</Typography>
-                  <Typography variant="h5">{patient.age_y}</Typography>
+                  <Typography variant="h5">{}</Typography>
                 </Stack>
               </Box>
             </Grid>

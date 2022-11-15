@@ -1,11 +1,11 @@
 import { createSlice } from "@reduxjs/toolkit";
 const initialState = {
   patientData: {
-    hn: "00049915",
-    fullname: "มาตุภูมิ ใครบุตร",
+    hn: null,
+    fullname: null,
     cid: null,
-    age_y: "40",
-    tell: "0965343656",
+    age_y: null,
+    tell: null,
   },
 };
 export const patientSlice = createSlice({
@@ -15,6 +15,7 @@ export const patientSlice = createSlice({
     setPatientData: (state, action) => {
       state.patientData = action.payload;
     },
+    checkPatient: (state, action) => {},
   },
 });
 export const { setPatientData } = patientSlice.actions;
