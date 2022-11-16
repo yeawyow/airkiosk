@@ -43,6 +43,7 @@ export default function ManualCid() {
     }
   });
   const handlePatient = () => {
+    dispatch(setPatientData({ ...setPatientData, cid: cid.join("") }));
     navigate("/patient");
   };
   return (

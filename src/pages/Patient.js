@@ -12,21 +12,21 @@ import Grid from "@mui/material/Unstable_Grid2";
 import { useDispatch, useSelector } from "react-redux";
 import { checkPatient } from "../app/patientSlice";
 import { useNavigate } from "react-router-dom";
-//import PostsList from "../app/posts/PostsList";
+import { useGetAllAttractionsQuery } from "../app/services/attraction";
 
 export default function Patient() {
   let navigate = useNavigate();
   const patientData = useSelector((state) => state.patient?.patientData);
   //const cid = useSelector((state) => state.mqttcon?.cardId?.data?.cid);
-
+  const { data, error, isLoading } = useGetAllAttractionsQuery(patientData.cid);
   const dispatch = useDispatch();
-  useEffect(() => {
-    if (patientData?.cid) {
-      dispatch(checkPatient());
-    } else {
-      navigate("/");
-    }
-  });
+
+  if (patientData?.cid) {
+    // dispatch();
+  } else {
+    navigate("/");
+  }
+
   return (
     <div>
       <Container component="main" maxWidth="lg" sx={{ mb: 4 }}>

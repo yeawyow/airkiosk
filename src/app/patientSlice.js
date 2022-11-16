@@ -1,5 +1,4 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 const initialState = {
   patientData: {
     hn: null,
@@ -16,11 +15,9 @@ export const patientSlice = createSlice({
     setPatientData: (state, action) => {
       state.patientData = action.payload;
     },
-    checkPatient: (state, action) => {
-      // state.patientData = action.payload;
-    },
+    checkPatient: (state, action) => {},
   },
 });
-export const { setPatientData, checkPatient } = patientSlice.actions;
+export const { setPatientData } = patientSlice.actions;
 
 export default patientSlice.reducer;
