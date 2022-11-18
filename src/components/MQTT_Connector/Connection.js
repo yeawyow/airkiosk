@@ -52,8 +52,8 @@ const HookMqtt = () => {
     client.on("message", (topic, message) => {
       const payload = { topic, message: message.toString() };
 
-      // console.log(payload);
       var cardData = JSON.parse(payload.message);
+      //console.log(cardData);
       if (cardData?.status === "DATA_RETRIEVED") {
         dispatch(setCardId(cardData));
         dispatch(setcardStatus(cardData.status));
