@@ -13,6 +13,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { checkPatient } from "../app/patientSlice";
 import { useNavigate } from "react-router-dom";
 import { useGetAllAttractionsQuery } from "../app/services/attraction";
+import Swal from "sweetalert2";
 
 export default function Patient() {
   let navigate = useNavigate();
@@ -38,7 +39,7 @@ export default function Patient() {
           <>error</>
         ) : isLoading ? (
           <>loading</>
-        ) : isSuccess ? (
+        ) : data ? (
           data?.map((patient) => {
             return (
               <>
@@ -52,9 +53,10 @@ export default function Patient() {
                     variant="outlined"
                     sx={{ my: { xs: 3, md: 3 }, p: { xs: 2, md: 3 } }}
                   >
-                    <Typography variant="h6" gutterBottom>
-                      ข้อมูลส่วนตัว1
-                    </Typography>
+                    <Stack direction="row" alignItems="center" gap={1}>
+                      <Typography variant="h5">HN:</Typography>
+                      <Typography variant="h5">{patient.Hn}</Typography>
+                    </Stack>
 
                     <Grid container spacing={2}>
                       <Grid item xs={2} sm={3}>
@@ -71,21 +73,21 @@ export default function Patient() {
                           <Paper variant="outlined" />
                         </Box>
                       </Grid>
-                      <Grid item sm={5}>
+                      <Grid item sm={8}>
                         <Box>
                           <Stack direction="row" alignItems="center" gap={1}>
-                            <Typography variant="h5">ชื่อ-สกุล:</Typography>
-                            <Typography variant="h5">
+                            <Typography variant="h5">id:</Typography>
+                            <Typography variant="h5">{patient.cid}</Typography>
+                          </Stack>
+                        </Box>
+                        <Box>
+                          <Stack direction="row" alignItems="center" gap={1}>
+                            <Typography variant="h3">
                               {patient.fname} {patient.Lname}
                             </Typography>
                           </Stack>
                         </Box>
-                        <Box>
-                          <Stack direction="row" alignItems="center" gap={1}>
-                            <Typography variant="h5">หมายเลขบัตร:</Typography>
-                            <Typography variant="h5">{patient.cid}</Typography>
-                          </Stack>
-                        </Box>
+
                         <Box>
                           <Stack direction="row" alignItems="center" gap={1}>
                             <Typography variant="h5">สิทธิหลัก:</Typography>
@@ -106,12 +108,6 @@ export default function Patient() {
                         </Box>
                       </Grid>
                       <Grid item xs={12} sm={3}>
-                        <Box>
-                          <Stack direction="row" alignItems="center" gap={1}>
-                            <Typography variant="h5">HN:</Typography>
-                            <Typography variant="h5">{patient.Hn}</Typography>
-                          </Stack>
-                        </Box>
                         <Box>
                           <Stack direction="row" alignItems="center" gap={1}>
                             <Typography variant="h5">อายุ:</Typography>
@@ -140,7 +136,12 @@ export default function Patient() {
             );
           })
         ) : (
-          <>no data</>
+          Swal.fire({
+            title: "Error!",
+            text: "Do you want to continue",
+            icon: "error",
+            confirmButtonText: "Cool",
+          })
         )
       ) : (
         navigate("/")
