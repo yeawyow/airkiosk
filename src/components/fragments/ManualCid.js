@@ -8,7 +8,7 @@ import { Typography, Toolbar } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { setPatientData } from "../../app/patientSlice";
-
+import { withSwal } from "react-sweetalert2";
 const useStyles = makeStyles((theme) => ({
   root: {
     display: "flex",
@@ -25,7 +25,13 @@ const useStyles = makeStyles((theme) => ({
     fontSize: 50,
   },
 }));
-
+function handleClick() {
+  this.swal.fire({
+    title: "Example",
+    text: "Swal injected",
+    icon: "success",
+  });
+}
 export default function ManualCid() {
   let navigate = useNavigate();
   const cardId = useSelector((state) => state.mqttcon.cardId);
@@ -55,6 +61,7 @@ export default function ManualCid() {
         direction="column"
         alignItems="center"
       >
+        <button onClick={handleClick.bind()}>Open</button>
         <Grid item>
           <Typography variant="h5">กรุณาระบุหมายเลขบัตรประชาชน</Typography>
         </Grid>

@@ -13,77 +13,73 @@ import { useDispatch, useSelector } from "react-redux";
 import { checkPatient } from "../app/patientSlice";
 import { useNavigate } from "react-router-dom";
 import { useGetAllAttractionsQuery } from "../app/services/attraction";
-import Swal from "sweetalert2";
+import { getTodoAsync } from "../app/nhsoSlice";
+import { getPatientAsync } from "../app/patientSlice";
 
 export default function Patient() {
   let navigate = useNavigate();
-  const patientData = useSelector((state) => state.patient?.patientData);
-  //const cid = useSelector((state) => state.mqttcon?.cardId?.data?.cid);
-  const { data, error, isLoading, isSuccess, isFetching } =
-    useGetAllAttractionsQuery(patientData.cid);
+  const person = useSelector((state) => state.nhsoPerson?.data);
+  const cardId = useSelector((state) => state.mqttcon?.cardId);
+  const cid = useSelector((state) => state.mqttcon?.cardId?.data?.cid);
+  const patient = useSelector((state) => state.patient?.patientData);
+  const { error, result } = patient;
+  /* const { data, error, isLoading, isSuccess, isFetching } =
+    useGetAllAttractionsQuery(patientData.cid);*/
+
   const dispatch = useDispatch();
-  console.log(data);
-
-  // const { cid, Hn, fname } = data;
-  // console.log(cid, Hn);
-  /*if (patientData?.cid) {
-    // dispatch();
-  } else {
+  if (cardId === null) {
     navigate("/");
-  }*/
-
+  }
+  //console.log(data);
+  useEffect(() => {
+    if (cid) {
+      dispatch(getTodoAsync());
+      dispatch(getPatientAsync(cid));
+    }
+    if (cardId === null) {
+      navigate("/");
+    }
+  }, []);
   return (
     <div>
-      {patientData.cid ? (
-        error ? (
-          <>error</>
-        ) : isLoading ? (
-          <>loading</>
-        ) : data ? (
-          data?.map((patient) => {
+      {person
+        ? person?.map((person) => {
             return (
               <>
-                <Container
-                  component="main"
-                  maxWidth="lg"
-                  sx={{ mb: 4 }}
-                  key={patient.cid}
-                >
+                <Container component="main" maxWidth="lg" sx={{ mb: 4 }}>
                   <Paper
                     variant="outlined"
                     sx={{ my: { xs: 3, md: 3 }, p: { xs: 2, md: 3 } }}
                   >
-                    <Stack direction="row" alignItems="center" gap={1}>
-                      <Typography variant="h5">HN:</Typography>
-                      <Typography variant="h5">{patient.Hn}</Typography>
-                    </Stack>
+                    <Stack direction="row" alignItems="center" gap={1}></Stack>
 
-                    <Grid container spacing={2}>
+                    <Grid container spacing={12}>
                       <Grid item xs={2} sm={3}>
                         <Box
                           sx={{
                             display: "flex",
                             "& > :not(style)": {
                               // m: 1,
-                              width: 200,
+                              width: 300,
                               height: 200,
                             },
                           }}
                         >
+                          <img src={`data:image/jpeg;base64,${person.image}`} />
                           <Paper variant="outlined" />
                         </Box>
                       </Grid>
                       <Grid item sm={8}>
                         <Box>
                           <Stack direction="row" alignItems="center" gap={1}>
-                            <Typography variant="h5">id:</Typography>
-                            <Typography variant="h5">{patient.cid}</Typography>
+                            <Typography variant="h5">pid:</Typography>
+                            <Typography variant="h5">{person.pid}</Typography>
                           </Stack>
                         </Box>
                         <Box>
                           <Stack direction="row" alignItems="center" gap={1}>
                             <Typography variant="h3">
-                              {patient.fname} {patient.Lname}
+                              {person.fname} {person.lname}
                             </Typography>
                           </Stack>
                         </Box>
@@ -91,13 +87,17 @@ export default function Patient() {
                         <Box>
                           <Stack direction="row" alignItems="center" gap={1}>
                             <Typography variant="h5">สิทธิหลัก:</Typography>
-                            <Typography variant="h5">{}</Typography>
+                            <Typography variant="h5">
+                              {person.mainInscl}
+                            </Typography>
                           </Stack>
                         </Box>
                         <Box>
                           <Stack direction="row" alignItems="center" gap={1}>
                             <Typography variant="h5">สิทธิรอง:</Typography>
-                            <Typography variant="h5">{}</Typography>
+                            <Typography variant="h5">
+                              {person.subInscl}
+                            </Typography>
                           </Stack>
                         </Box>
                         <Box>
@@ -106,12 +106,10 @@ export default function Patient() {
                             <Typography variant="h5">{}</Typography>
                           </Stack>
                         </Box>
-                      </Grid>
-                      <Grid item xs={12} sm={3}>
                         <Box>
                           <Stack direction="row" alignItems="center" gap={1}>
                             <Typography variant="h5">อายุ:</Typography>
-                            <Typography variant="h5">{}</Typography>
+                            <Typography variant="h5">{person.age}</Typography>
                           </Stack>
                         </Box>
                       </Grid>
@@ -135,17 +133,7 @@ export default function Patient() {
               </>
             );
           })
-        ) : (
-          Swal.fire({
-            title: "Error!",
-            text: "Do you want to continue",
-            icon: "error",
-            confirmButtonText: "Cool",
-          })
-        )
-      ) : (
-        navigate("/")
-      )}
+        : navigate("/")}
     </div>
   );
 }

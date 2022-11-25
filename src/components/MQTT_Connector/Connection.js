@@ -6,6 +6,7 @@ import { setCardId, setcardImage, setcardStatus } from "../../app/conMqttSlice";
 import { useNavigate } from "react-router-dom";
 import { apiMqttUrl } from "../../Constants";
 import { setPatientData } from "../../app/patientSlice";
+import { removePerson } from "../../app/nhsoSlice";
 
 //import { plugins } from "pretty-format";
 
@@ -57,7 +58,7 @@ const HookMqtt = () => {
       if (cardData?.status === "DATA_RETRIEVED") {
         dispatch(setCardId(cardData));
         dispatch(setcardStatus(cardData.status));
-        dispatch(setPatientData({ ...patientData, cid: cardData?.data?.cid }));
+        //  dispatch(setPatientData({ ...patientData, cid: cardData?.data?.cid }));
       } else if (cardData?.status === "IMAGE_RETRIEVED") {
         dispatch(setcardImage(cardData?.data));
         dispatch(setcardStatus(cardData.status));
@@ -67,6 +68,7 @@ const HookMqtt = () => {
         dispatch(setcardImage(null));
         dispatch(setcardStatus(cardData.status));
         dispatch(setPatientData({ ...patientData, cid: null }));
+        dispatch(removePerson());
       }
     });
   }, [client]);
