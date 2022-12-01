@@ -7,22 +7,19 @@ import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
 import Stack from "@mui/material/Stack";
 import Button from "@mui/material/Button";
-import FormControlLabel from "@mui/material/FormControlLabel";
 import Grid from "@mui/material/Unstable_Grid2";
 import { useDispatch, useSelector } from "react-redux";
-import { checkPatient } from "../app/patientSlice";
 import { useNavigate } from "react-router-dom";
-import { useGetAllAttractionsQuery } from "../app/services/attraction";
 import { getTodoAsync } from "../app/nhsoSlice";
 import { getPatientAsync } from "../app/patientSlice";
+import HosService from "../components/fragments/HosService";
 
 export default function Patient() {
   let navigate = useNavigate();
   const person = useSelector((state) => state.nhsoPerson?.data);
   const cardId = useSelector((state) => state.mqttcon?.cardId);
   const cid = useSelector((state) => state.mqttcon?.cardId?.data?.cid);
-  const patient = useSelector((state) => state.patient?.patientData);
-  const { error, result } = patient;
+
   /* const { data, error, isLoading, isSuccess, isFetching } =
     useGetAllAttractionsQuery(patientData.cid);*/
 
@@ -40,6 +37,7 @@ export default function Patient() {
       navigate("/");
     }
   }, []);
+
   return (
     <div>
       {person
@@ -116,19 +114,9 @@ export default function Patient() {
                     </Grid>
                   </Paper>
                 </Container>
+
                 <Container component="main" maxWidth="lg" sx={{ mb: 4 }}>
-                  <Paper
-                    variant="outlined"
-                    sx={{ my: { xs: 3, md: 3 }, p: { xs: 2, md: 3 } }}
-                  >
-                    <Typography variant="h6" gutterBottom>
-                      เข้ารับบริการ
-                    </Typography>
-                    <Grid container spacing={2}>
-                      <Grid item sm={6}></Grid>
-                      <Grid item sm={6}></Grid>
-                    </Grid>
-                  </Paper>
+                  <HosService />
                 </Container>
               </>
             );

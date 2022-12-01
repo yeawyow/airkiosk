@@ -22,8 +22,10 @@ export const getPatientAsync = (data) => async (dispatch) => {
     const response = await axios.get(
       `http://localhost:8081/api/getpatient/${data}`
     );
-
-    dispatch(setPatientData(response.data));
+    if (response.data.result === "") {
+    } else {
+      dispatch(setPatientData(response.data));
+    }
   } catch (err) {
     throw new Error(err);
   }
