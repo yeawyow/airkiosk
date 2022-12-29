@@ -2,35 +2,48 @@ import React, { useState } from "react";
 
 export default function Datetime() {
   // const date = new Date().toLocaleDateString();
-  let time = new Date().toLocaleTimeString();
+  let time = new Date().toLocaleTimeString("th-TH");
 
   const [ctime, setCtime] = useState(time);
 
   const UpdateTime = () => {
-    time = new Date().toLocaleTimeString();
+    time = new Date().toLocaleTimeString("th-TH");
     setCtime(time);
   };
   setInterval(UpdateTime, 1000);
-  //const tt = today.toLocaleString("th-TH", { timeZone: "UTC" });
-  // const year = today;
-  // let date = new Date(2565, 2, 1);
-  //onst month = today.getMonth().toString().substr(-2);
-  // console.log(today.toISOString());
-  // console.log(today.toUTCString());
 
-  // Convert time to curreny locale
-  // console.log(today.toString());
-  //console.log(today.toLocaleString());
+  const date = new Date();
 
-  // Convert time to specified locale
-  // console.log(today.toLocaleString("en-GB", { timeZone: "UTC" }));
-  //console.log(today.toLocaleString("th-TH", { timeZone: "UTC" }));
-  // console.log(today.toLocaleString("tr-TR", { timeZone: "UTC" }));
+  const result = date.toLocaleDateString("th-TH", {
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+    weekday: "long",
+  });
 
+  const datevn = new Date();
+
+  const vnYear = datevn
+    .toLocaleDateString("th-TH", {
+      year: "2-digit",
+    })
+    .substr(4);
+  const vnMonth = datevn.getMonth() + 1;
+  const vnDay = datevn.getDate();
+  const vnHoure = datevn.getHours().toString().padStart(2, "0");
+  const vnMinutes = datevn.getMinutes().toString().padStart(2, "0");
+  const vnSec = datevn.getSeconds().toString().padStart(2, "0");
+  const vn = vnYear + vnMonth + vnDay + vnHoure + vnMinutes + vnSec;
+  const vstdate = datevn.toLocaleDateString("en-CA"); // 2020-08-19 (year-month-day) notice the different locale
+  //console.log(vn);
   return (
     <div>
       <>
-        <p>Today's time is {ctime}</p>
+        <p> {result}</p>
+        <p>เวลา {ctime}</p>
+
+        <p>VN: {vn}</p>
+        <p>vstdate:{vstdate}</p>
       </>
     </div>
   );

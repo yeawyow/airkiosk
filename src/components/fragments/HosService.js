@@ -5,6 +5,7 @@ import Grid from "@mui/material/Unstable_Grid2";
 import { useDispatch, useSelector } from "react-redux";
 import SweetAlert2 from "react-sweetalert2";
 import { useNavigate } from "react-router-dom";
+import DepService from "./DepService";
 
 export default function HosService(props) {
   const patient = useSelector((state) => state.patient.patientData.result);
@@ -33,7 +34,9 @@ export default function HosService(props) {
             เข้ารับบริการ
           </Typography>
           <Grid container spacing={2}>
-            <Grid item sm={6}></Grid>
+            <Grid item sm={6}>
+              <DepService />
+            </Grid>
             <Grid item sm={6}></Grid>
           </Grid>
         </Paper>
