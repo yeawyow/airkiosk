@@ -9,6 +9,8 @@ import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { setPatientData } from "../../app/patientSlice";
 import { withSwal } from "react-sweetalert2";
+import { getPatientAsync } from "../../app/patientSlice";
+
 const useStyles = makeStyles((theme) => ({
   root: {
     display: "flex",
@@ -25,22 +27,21 @@ const useStyles = makeStyles((theme) => ({
     fontSize: 50,
   },
 }));
-function handleClick() {
-  this.swal.fire({
-    title: "Example",
-    text: "Swal injected",
-    icon: "success",
-  });
-}
+
 export default function ManualCid() {
   let navigate = useNavigate();
   const cardId = useSelector((state) => state.mqttcon.cardId);
+  const patient = useSelector((state) => state.patient?.patientData);
   const [submitButton, setsubmitButton] = useState(true);
   const [buttonNumber, setbuttonNumber] = useState(false);
   const [cid, setcid] = useState([]);
   const length = cid.length;
   const classes = useStyles();
   const dispatch = useDispatch();
+  function handleClick() {
+    dispatch(getPatientAsync(cid.join("")));
+    // console.log(cid.join(""));
+  }
   useEffect(() => {
     // Update the document title using the browser API
     if (length === 13) {
@@ -61,7 +62,6 @@ export default function ManualCid() {
         direction="column"
         alignItems="center"
       >
-        <button onClick={handleClick.bind()}>Open</button>
         <Grid item>
           <Typography variant="h5">กรุณาระบุหมายเลขบัตรประชาชน</Typography>
         </Grid>
@@ -257,7 +257,7 @@ export default function ManualCid() {
                 className={classes.button}
                 disabled={submitButton}
                 type="submit"
-                onClick={handlePatient}
+                onClick={handleClick}
               >
                 <span className={classes.buttonText2}>ตกลง</span>
               </Button>

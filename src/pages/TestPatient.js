@@ -2,7 +2,7 @@ import * as React from "react";
 import { useGetAllAttractionsQuery } from "../app/services/attraction";
 
 export default function TestPatient() {
-  const cid = "3460100321128";
+  const cid = "3471100354035";
   // Using a query hook automatically fetches data and returns query values
   const { data, error, isLoading } = useGetAllAttractionsQuery(cid);
   // Individual hooks are also accessible under the generated endpoints:
