@@ -7,7 +7,7 @@ export const ADD_NUMBER = "ADD_NUMBER";
 export const CLEAR_NUMBER = "CLEAR_NUMBER";
 
 // notification
-export const NOTIFICATION = "NOTIFICATION";
+//export const NOTIFICATION = "NOTIFICATION";
 export const CLOSENOTIFICATION = "CLOSENOTIFICATION";
 
 // Stock Edit Page
