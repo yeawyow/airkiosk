@@ -16,7 +16,7 @@ export const STOCK_EDIT_SUCCESS = "STOCK_EDIT_SUCCESS";
 export const STOCK_EDIT_FAILED = "STOCK_EDIT_FAILED";
 export const STOCK_EDIT_INITIALED = "STOCK_EDIT_INITIALED";
 
-export const apiHisUrl = "http://localhost:8081/api/";
+//export const apiHisUrl = "http://localhost:8081/api/";
 export const apiMqttUrl = "ws://localhost:10884";
 export const smartcardAgent = "http://localhost:8189";
 export const soapNhso =
@@ -35,7 +35,8 @@ export const server = {
   TRANSACTION_URL: `transaction`,
   REPORT_URL: `stock/report`,
   LOGIN_PASSED: `yes`,
-  PATIENT_URL: `getpatient`,
+  PATIENT_URL: `getpatient/`,
+  apiHisUrl: `http://localhost:8081/api/`,
 };
 
 // Error Code

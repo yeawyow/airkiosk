@@ -2,7 +2,6 @@ import axios from "axios";
 import join from "url-join";
 import {
   server,
-  apiUrl,
   NOT_CONNECT_NETWORK,
   NETWORK_CONNECTION_MESSAGE,
 } from "../Constants";
@@ -11,7 +10,7 @@ const isAbsoluteURLRegex = /^(?:\w+:)\/\//;
 
 axios.interceptors.request.use(async (config) => {
   if (!isAbsoluteURLRegex.test(config.url)) {
-    config.url = join(apiUrl, config.url);
+    config.url = join(server.apiHisUrl, config.url);
   }
   config.timeout = 10000; // 10 Second
   return config;

@@ -8,7 +8,7 @@ import IdCard from "./pages/IdCard";
 import ManualCid from "./components/fragments/ManualCid";
 import Patient from "./pages/Patient";
 import MQTTConnect from "./components/MQTT_Connector/Connection";
-import TestPatient from "./pages/TestPatient";
+import NumberPhone from "./pages/NumberPhone";
 
 const theme = createTheme({
   typography: {
@@ -40,7 +40,7 @@ function App() {
                 <Route path="/" element={<IdCard />}></Route>
                 <Route path="/number" element={<ManualCid />}></Route>
                 <Route path="/patient" element={<Patient />}></Route>
-                <Route path="/test" element={<TestPatient />}></Route>
+                <Route path="/ptphone" element={<NumberPhone />}></Route>
               </Routes>
             </Router>
           </ThemeProvider>

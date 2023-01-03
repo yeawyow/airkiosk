@@ -1,10 +1,11 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { apiHisUrl } from "../Constants";
+import { server } from "../Constants";
 import axios from "axios";
 const initialState = {
   patientData: {
     hn: null,
-    fullname: null,
+    fname: null,
+    lname: null,
     cid: null,
     hometel: null,
   },
@@ -20,7 +21,9 @@ export const patientSlice = createSlice({
 });
 export const getPatientAsync = (data) => async (dispatch) => {
   try {
-    const response = await axios.get(apiHisUrl`/getpatient/${data}`);
+    const response = await axios.get(
+      server.apiHisUrl + server.PATIENT_URL + `${data}`
+    );
     if (response.data.result === "") {
     } else {
       dispatch(setPatientData(response.data));
